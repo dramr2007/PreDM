@@ -22,7 +22,7 @@
   - **Blood Glucose Tracking** - تتبع مستوى سكر الدم
   - **BMI & Weight Monitoring** - مراقبة مؤشر كتلة الجسم والوزن
   - **Exercise Logging** - تسجيل النشاط البدني
-  - **Blood Pressure Tracking** - تتبع ضغط الدم  
+  - **Blood Pressure Tracking** - تتبع ضغط الدم
   - **Medication Alerts** - تنبيهات الأدوية المؤثرة على السكر (كورتيكوستيرويدات، مثبطات المناعة)
   - **Health Education** - تثقيف صحي متكامل
   - **Carbohydrate Calculator** - حاسبة الكربوهيدرات
@@ -52,7 +52,7 @@
 
   ## Developer / المطور
 
-  **Dr. A. Ramadan**  
+  **DR. Amr Kamel Khalil Ahmed**
   © 2026 PreDM. All Rights Reserved.
 
   *Trademark registered in South Africa*
