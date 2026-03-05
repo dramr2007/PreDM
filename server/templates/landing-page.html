@@ -4,7 +4,7 @@
     <title>PreDM - مراقب ما قبل السكري</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="google-site-verification" content="ohfQ2wf1M4YPNifa7Ta5y3VBNwlBjka_EmU2LwuEtc8" />
+    <meta name="google-site-verification" content="32F6qMQdSUpxXk2ikzg59Uld0TVAALbVQxGcYgohnvg" />
     <meta name="description" content="تطبيق PreDM لرصد مرحلة ما قبل السكري وفق معايير ADA 2026. تتبع سكر الدم، الوزن، ضغط الدم والنشاط البدني." />
     <meta name="theme-color" content="#0D9488" />
 
@@ -331,16 +331,7 @@
       </div>
 
       <div class="install-title">كيف تثبّت التطبيق؟</div>
-      <div class="install-subtitle">اختر نوع جهازك</div>
-
-      <div class="platform-tabs">
-        <button class="tab-btn active" onclick="showTab('android')" id="tab-android">
-          <span>🤖</span> Android
-        </button>
-        <button class="tab-btn" onclick="showTab('ios')" id="tab-ios">
-          <span>🍎</span> iPhone
-        </button>
-      </div>
+      <div class="install-subtitle">مباشرة من متصفح Chrome — بدون أي متجر تطبيقات</div>
 
       <div class="steps-panel active" id="panel-android">
         <div class="step-card">
@@ -348,7 +339,7 @@
           <div class="step-content">
             <div class="step-icon">🌐</div>
             <h3>افتح هذا الرابط في Chrome</h3>
-            <p>تأكد أنك تستخدم متصفح Chrome على جهاز Android</p>
+            <p>تأكد أنك تستخدم متصفح Chrome على جهازك</p>
           </div>
         </div>
         <div class="step-card">
@@ -378,41 +369,6 @@
         <button class="install-btn" id="install-btn-android" onclick="triggerInstall()">
           📲 ثبّت التطبيق الآن
         </button>
-      </div>
-
-      <div class="steps-panel" id="panel-ios">
-        <div class="step-card">
-          <div class="step-num">1</div>
-          <div class="step-content">
-            <div class="step-icon">🌐</div>
-            <h3>افتح هذا الرابط في Safari</h3>
-            <p>يجب استخدام متصفح Safari على iPhone أو iPad</p>
-          </div>
-        </div>
-        <div class="step-card">
-          <div class="step-num">2</div>
-          <div class="step-content">
-            <div class="step-icon">⬆️</div>
-            <h3>اضغط زر المشاركة</h3>
-            <p>اضغط على أيقونة السهم ⬆️ في أسفل الشاشة (شريط Safari)</p>
-          </div>
-        </div>
-        <div class="step-card">
-          <div class="step-num">3</div>
-          <div class="step-content">
-            <div class="step-icon">➕</div>
-            <h3>اختر "إضافة إلى الشاشة الرئيسية"</h3>
-            <p>مرّر للأسفل في قائمة المشاركة وابحث عن هذا الخيار</p>
-          </div>
-        </div>
-        <div class="step-card">
-          <div class="step-num">4</div>
-          <div class="step-content">
-            <div class="step-icon">✅</div>
-            <h3>اضغط "إضافة" وانتهى!</h3>
-            <p>ستجد أيقونة PreDM على شاشتك الرئيسية</p>
-          </div>
-        </div>
       </div>
 
       <div class="divider">مميزات التطبيق</div>
@@ -475,19 +431,6 @@
         }
       }
 
-      function showTab(platform) {
-        document.querySelectorAll('.steps-panel').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById('panel-' + platform).classList.add('active');
-        document.getElementById('tab-' + platform).classList.add('active');
-      }
-
-      const ua = navigator.userAgent;
-      if (/iPad|iPhone|iPod/.test(ua)) {
-        showTab('ios');
-      } else {
-        showTab('android');
-      }
     </script>
   </body>
 </html>

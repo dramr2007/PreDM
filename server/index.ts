@@ -198,6 +198,11 @@ function configureExpoAndLanding(app: express.Application) {
     next();
   });
 
+  app.get("/google32F6qMQdSUpxXk2ikzg59Uld0TVAALbVQxGcYgohnvg.html", (_req: Request, res: Response) => {
+    res.setHeader("Content-Type", "text/html");
+    res.send("google-site-verification: google32F6qMQdSUpxXk2ikzg59Uld0TVAALbVQxGcYgohnvg.html");
+  });
+
   app.get("/pwa-manifest.json", (_req: Request, res: Response) => {
     res.setHeader("Content-Type", "application/manifest+json");
     res.json({
