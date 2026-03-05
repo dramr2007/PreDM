@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <title>PreDM - مراقب ما قبل السكري</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="google-site-verification" content="ohfQ2wf1M4YPNifa7Ta5y3VBNwlBjka_EmU2LwuEtc8" />
+    <meta name="description" content="تطبيق PreDM لرصد مرحلة ما قبل السكري وفق معايير ADA 2026. تتبع سكر الدم، الوزن، ضغط الدم والنشاط البدني." />
+    <meta name="theme-color" content="#0D9488" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="PreDM" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <link rel="manifest" href="/pwa-manifest.json" />
+    <link rel="apple-touch-icon" href="/assets/images/icon.png" />
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+        background: #f0faf9;
+        color: #1a1a2e;
+        min-height: 100vh;
+        direction: rtl;
+      }
+
+      .hero {
+        background: linear-gradient(135deg, #0D9488 0%, #0F766E 60%, #065F5B 100%);
+        color: white;
+        text-align: center;
+        padding: 48px 24px 56px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: '';
+        position: absolute;
+        top: -50px; left: -50px;
+        width: 200px; height: 200px;
+        background: rgba(255,255,255,0.05);
+        border-radius: 50%;
+      }
+
+      .hero::after {
+        content: '';
+        position: absolute;
+        bottom: -80px; right: -40px;
+        width: 280px; height: 280px;
+        background: rgba(255,255,255,0.05);
+        border-radius: 50%;
+      }
+
+      .app-icon {
+        width: 88px;
+        height: 88px;
+        border-radius: 22px;
+        margin: 0 auto 16px;
+        display: block;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+        position: relative;
+        z-index: 1;
+      }
+
+      .app-name {
+        font-size: 38px;
+        font-weight: 800;
+        letter-spacing: -1px;
+        margin-bottom: 6px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .app-tagline {
+        font-size: 15px;
+        opacity: 0.88;
+        margin-bottom: 6px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .ada-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(255,255,255,0.18);
+        border: 1px solid rgba(255,255,255,0.35);
+        border-radius: 20px;
+        padding: 5px 14px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-top: 8px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .container {
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 28px 20px 40px;
+      }
+
+      .install-title {
+        text-align: center;
+        font-size: 20px;
+        font-weight: 700;
+        color: #0D9488;
+        margin-bottom: 6px;
+      }
+
+      .install-subtitle {
+        text-align: center;
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 24px;
+      }
+
+      .platform-tabs {
+        display: flex;
+        background: #e2f5f3;
+        border-radius: 12px;
+        padding: 4px;
+        margin-bottom: 20px;
+        gap: 4px;
+      }
+
+      .tab-btn {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        border-radius: 9px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        background: transparent;
+        color: #555;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+
+      .tab-btn.active {
+        background: white;
+        color: #0D9488;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      }
+
+      .steps-panel {
+        display: none;
+      }
+
+      .steps-panel.active {
+        display: block;
+      }
+
+      .step-card {
+        background: white;
+        border-radius: 14px;
+        padding: 18px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        box-shadow: 0 2px 12px rgba(13,148,136,0.08);
+        border: 1px solid rgba(13,148,136,0.1);
+      }
+
+      .step-num {
+        min-width: 34px;
+        height: 34px;
+        background: #0D9488;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      .step-content h3 {
+        font-size: 15px;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin-bottom: 4px;
+      }
+
+      .step-content p {
+        font-size: 13px;
+        color: #666;
+        line-height: 1.5;
+      }
+
+      .step-icon {
+        font-size: 22px;
+        margin-bottom: 2px;
+      }
+
+      .install-btn {
+        display: block;
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(135deg, #0D9488, #0F766E);
+        color: white;
+        border: none;
+        border-radius: 14px;
+        font-size: 16px;
+        font-weight: 700;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        margin-top: 20px;
+        box-shadow: 0 4px 16px rgba(13,148,136,0.35);
+        transition: transform 0.15s, box-shadow 0.15s;
+      }
+
+      .install-btn:active {
+        transform: scale(0.98);
+        box-shadow: 0 2px 8px rgba(13,148,136,0.25);
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 24px 0;
+        color: #aaa;
+        font-size: 13px;
+      }
+
+      .divider::before, .divider::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: #e5e7eb;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+
+      .feature-item {
+        background: white;
+        border-radius: 12px;
+        padding: 14px 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+        border: 1px solid #f0f0f0;
+      }
+
+      .feature-icon {
+        font-size: 20px;
+      }
+
+      .feature-text {
+        font-size: 12px;
+        font-weight: 600;
+        color: #333;
+        line-height: 1.3;
+      }
+
+      .footer-note {
+        text-align: center;
+        font-size: 12px;
+        color: #999;
+        margin-top: 8px;
+        padding-bottom: 16px;
+      }
+
+      .pwa-banner {
+        background: linear-gradient(135deg, #F59E0B, #D97706);
+        color: white;
+        border-radius: 14px;
+        padding: 16px 20px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        box-shadow: 0 4px 16px rgba(245,158,11,0.3);
+      }
+
+      .pwa-banner-icon { font-size: 28px; flex-shrink: 0; }
+      .pwa-banner-text h3 { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+      .pwa-banner-text p { font-size: 12px; opacity: 0.9; }
+
+      @media (prefers-color-scheme: dark) {
+        body { background: #0a1628; color: #e0e0e0; }
+        .install-title { color: #2dd4bf; }
+        .install-subtitle { color: #888; }
+        .step-card { background: #1a2540; border-color: rgba(45,212,191,0.15); }
+        .step-content h3 { color: #f0f0f0; }
+        .step-content p { color: #888; }
+        .platform-tabs { background: #1a2540; }
+        .tab-btn.active { background: #243050; color: #2dd4bf; }
+        .feature-item { background: #1a2540; border-color: #2a3550; }
+        .feature-text { color: #ccc; }
+        .footer-note { color: #555; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero">
+      <img src="/assets/images/icon.png" alt="PreDM" class="app-icon" />
+      <div class="app-name">PreDM</div>
+      <div class="app-tagline">مرشدك الذكي لرصد ما قبل السكري</div>
+      <div class="ada-badge">
+        <span>✓</span> وفق معايير ADA 2026
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="pwa-banner">
+        <div class="pwa-banner-icon">⚡</div>
+        <div class="pwa-banner-text">
+          <h3>ثبّت التطبيق مجاناً</h3>
+          <p>بدون متاجر التطبيقات — مباشرة من متصفحك</p>
+        </div>
+      </div>
+
+      <div class="install-title">كيف تثبّت التطبيق؟</div>
+      <div class="install-subtitle">اختر نوع جهازك</div>
+
+      <div class="platform-tabs">
+        <button class="tab-btn active" onclick="showTab('android')" id="tab-android">
+          <span>🤖</span> Android
+        </button>
+        <button class="tab-btn" onclick="showTab('ios')" id="tab-ios">
+          <span>🍎</span> iPhone
+        </button>
+      </div>
+
+      <div class="steps-panel active" id="panel-android">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-icon">🌐</div>
+            <h3>افتح هذا الرابط في Chrome</h3>
+            <p>تأكد أنك تستخدم متصفح Chrome على جهاز Android</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-icon">⋮</div>
+            <h3>اضغط على قائمة Chrome</h3>
+            <p>اضغط النقاط الثلاث ⋮ في أعلى يمين الشاشة</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-icon">📲</div>
+            <h3>اختر "إضافة إلى الشاشة الرئيسية"</h3>
+            <p>أو سيظهر لك تلقائياً زر "تثبيت التطبيق" في أسفل الشاشة</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-icon">✅</div>
+            <h3>اضغط "تثبيت" وانتهى!</h3>
+            <p>ستجد أيقونة PreDM على شاشتك الرئيسية كأي تطبيق عادي</p>
+          </div>
+        </div>
+        <button class="install-btn" id="install-btn-android" onclick="triggerInstall()">
+          📲 ثبّت التطبيق الآن
+        </button>
+      </div>
+
+      <div class="steps-panel" id="panel-ios">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-icon">🌐</div>
+            <h3>افتح هذا الرابط في Safari</h3>
+            <p>يجب استخدام متصفح Safari على iPhone أو iPad</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-icon">⬆️</div>
+            <h3>اضغط زر المشاركة</h3>
+            <p>اضغط على أيقونة السهم ⬆️ في أسفل الشاشة (شريط Safari)</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-icon">➕</div>
+            <h3>اختر "إضافة إلى الشاشة الرئيسية"</h3>
+            <p>مرّر للأسفل في قائمة المشاركة وابحث عن هذا الخيار</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-icon">✅</div>
+            <h3>اضغط "إضافة" وانتهى!</h3>
+            <p>ستجد أيقونة PreDM على شاشتك الرئيسية</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider">مميزات التطبيق</div>
+
+      <div class="features-grid">
+        <div class="feature-item">
+          <span class="feature-icon">🩸</span>
+          <span class="feature-text">تتبع سكر الدم</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">⚖️</span>
+          <span class="feature-text">مراقبة الوزن</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">💊</span>
+          <span class="feature-text">تنبيهات الأدوية</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🏃</span>
+          <span class="feature-text">تتبع التمارين</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">📊</span>
+          <span class="feature-text">تقييم المخاطر</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">📚</span>
+          <span class="feature-text">تثقيف صحي</span>
+        </div>
+      </div>
+
+      <div class="footer-note">
+        © 2026 PreDM · DR. Amr Kamel Khalil Ahmed<br/>
+        وفق معايير الجمعية الأمريكية للسكري ADA 2026
+      </div>
+    </div>
+
+    <script>
+      let deferredPrompt = null;
+
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        const btn = document.getElementById('install-btn-android');
+        if (btn) {
+          btn.style.display = 'block';
+          btn.textContent = '📲 ثبّت التطبيق الآن';
+        }
+      });
+
+      function triggerInstall() {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then((result) => {
+            if (result.outcome === 'accepted') {
+              document.getElementById('install-btn-android').textContent = '✅ تم التثبيت بنجاح!';
+            }
+            deferredPrompt = null;
+          });
+        }
+      }
+
+      function showTab(platform) {
+        document.querySelectorAll('.steps-panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('panel-' + platform).classList.add('active');
+        document.getElementById('tab-' + platform).classList.add('active');
+      }
+
+      const ua = navigator.userAgent;
+      if (/iPad|iPhone|iPod/.test(ua)) {
+        showTab('ios');
+      } else {
+        showTab('android');
+      }
+    </script>
+  </body>
+</html>
