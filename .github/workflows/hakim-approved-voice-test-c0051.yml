@@ -25,7 +25,7 @@ jobs:
       - name: Install MIT licensed Chatterbox multilingual
         run: |
           python -m pip install --upgrade pip
-          python -m pip install --no-deps 'git+https://github.com/resemble-ai/chatterbox.git@main'
+          python -m pip install --no-deps 'git+https://github.com/resemble-ai/chatterbox.git@master'
           python -m pip install numpy==1.26.4 librosa==0.11.0 s3tokenizer transformers==5.2.0 diffusers==0.29.0 conformer==0.3.2 safetensors==0.5.3 spacy-pkuseg pykakasi==2.3.0 pyloudnorm omegaconf soundfile
           python -m pip install git+https://github.com/resemble-ai/Perth.git@master
       - name: Install video audio decoding utility
