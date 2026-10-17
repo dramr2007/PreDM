@@ -1,0 +1,37 @@
+name: Hakim AI original Saudi female voice 45
+on:
+  push:
+    branches: [hakim-ai-free-voice-test]
+    paths:
+      - "hakim-voice/nabra_tts_c0045.py"
+      - ".github/workflows/hakim-nabra-c0045.yml"
+  workflow_dispatch:
+concurrency:
+  group: hakim-ai-nabra-test-45
+  cancel-in-progress: false
+permissions:
+  contents: read
+jobs:
+  original-saudi-voice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 26
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install licensed Nabra Saudi inference dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y espeak-ng
+          python -m pip install --upgrade pip
+          python -m pip install torch soundfile huggingface_hub loguru attrs "transformers<5" "misaki[en]>=0.9.4" "phonemizer-fork>=3.3.2" camel-tools numpy
+      - name: Synthesize Hakim episode 45 with authentic Nabra-Saudi-7M af_msa
+        run: python hakim-voice/nabra_tts_c0045.py
+      - name: Save actual free Saudi narrator master audio
+        uses: actions/upload-artifact@v4
+        with:
+          name: hakim-c0045-nabra-af_msa-audio
+          path: hakim-voice/output/HAI-C0045_arabic_voice_master.wav
+          if-no-files-found: error
+          retention-days: 7
