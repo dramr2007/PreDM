@@ -87,7 +87,7 @@ ar(d,'لا، اختبر أمثلة جديدة',(W//2,642),34,WHITE,True)
 ar(d,'تابع قناة حكيم',(W//2,875),43,YELLOW,True)
 im.save(P/'corrected_05.png')
 
-with wave.open(str(P/'HAI-C0041-voice-master.wav')) as wf: duration=wf.getnframes()/wf.getframerate()
+with wave.open(str(P/'output/HAI-C0041_arabic_voice_master.wav')) as wf: duration=wf.getnframes()/wf.getframerate()
 print('audio duration:', duration)
 segments=[duration/6]*6
 with (P/'scenes.ffconcat').open('w') as f:
@@ -98,6 +98,6 @@ ffmpeg_bin=shutil.which('ffmpeg')
 if not ffmpeg_bin:
  import imageio_ffmpeg
  ffmpeg_bin=imageio_ffmpeg.get_ffmpeg_exe()
-cmd=[ffmpeg_bin,'-y','-loglevel','error','-safe','0','-f','concat','-i',str(P/'scenes.ffconcat'),'-i',str(P/'HAI-C0041-voice-master.wav'),'-r','30','-vf','fps=30,format=yuv420p','-c:v','libx264','-preset','fast','-crf','22','-c:a','aac','-b:a','160k','-movflags','+faststart','-t',str(duration),'-shortest',str(P/'HAI-C0041-overfitting-AR-fixed.mp4')]
+cmd=[ffmpeg_bin,'-y','-loglevel','error','-safe','0','-f','concat','-i',str(P/'scenes.ffconcat'),'-i',str(P/'output/HAI-C0041_arabic_voice_master.wav'),'-r','30','-vf','fps=30,format=yuv420p','-c:v','libx264','-preset','fast','-crf','22','-c:a','aac','-b:a','160k','-movflags','+faststart','-t',str(duration),'-shortest',str(P/'HAI-C0041-overfitting-AR-fixed.mp4')]
 subprocess.run(cmd,cwd=P,check=True)
 print('Created',str(P/'HAI-C0041-overfitting-AR-fixed.mp4'))
