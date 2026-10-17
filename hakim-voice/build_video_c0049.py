@@ -65,7 +65,6 @@ im.save(P/'corrected_00.png')
 # 2. Actual missing data.
 im,d=base(1,'مفقود لا يعني صفرًا','MISSING ≠ ZERO','لم نرصد القياس، فلا نخترع النتيجة')
 measurement_table(d)
-box(d,(144,1002,578,1036),fill='#653446',outline=RED,rad=12)
 im.save(P/'corrected_01.png')
 
 # 3. Bad decision example.
