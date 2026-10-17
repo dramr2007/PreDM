@@ -37,6 +37,8 @@ jobs:
             -o output/voice.onnx.json
           ls -lh output/voice.onnx*
           test $(stat -c %s output/voice.onnx) -gt 1000000
+      - name: Install ffmpeg and ffprobe
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
       - name: Generate Arabic narration
         env:
           SCRIPT: ${{ inputs.script || 'hakim-voice/input_HAI-C0041.txt' }}
