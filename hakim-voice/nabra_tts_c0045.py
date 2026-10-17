@@ -4,7 +4,7 @@ from huggingface_hub import snapshot_download
 ROOT = Path(__file__).resolve().parent
 model_path = snapshot_download(
     repo_id="oddadmix/Nabra-Saudi-7M",
-    allow_patterns=["load_model.py", "af_msa.pt", "nabra_saudi_7m.pth", "*.json", "kokoro_patched/**", "arabic/**", "phonemizer/**"],
+    allow_patterns=["*.py", "af_msa.pt", "nabra_saudi_7m.pth", "*.json", "kokoro_patched/**", "arabic_g2p/**", "arabic/**", "phonemizer/**"],
     ignore_patterns=["training/**", "samples/**", "*/training/**", "nabra_saudi_7m_v1_direct.pth"],
 )
 sys.path.insert(0, model_path)
