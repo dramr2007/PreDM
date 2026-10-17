@@ -4,11 +4,12 @@ on:
     branches:
       - hakim-ai-free-voice-test
     paths:
-      - "hakim-voice/**"
+      - "hakim-voice/input_HAI-C0041.txt"
+      - "hakim-voice/build_video.py"
       - ".github/workflows/hakim-free-voice.yml"
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   synthesize:
     runs-on: ubuntu-latest
@@ -59,10 +60,26 @@ jobs:
               w.setnchannels(channels); w.setsampwidth(sw); w.setframerate(rate); w.writeframes(master.tobytes())
           print({"duration_s":round(n/rate,2),"sample_rate":rate,"channels":channels,"peak_before":peak,"peak_after":max(abs(v) for v in master),"rms_before":round(rms,2),"gain":round(gain,3),"output":str(dest)})
           PY
+      - name: Install font and portable video encoder
+        run: |
+          python -m pip install pillow imageio-ffmpeg
+          sudo apt-get update -qq
+          sudo apt-get install -y fonts-noto-core
+      - name: Create Arabic RTL corrected vertical educational video
+        run: |
+          python hakim-voice/build_video.py
+          ls -lh hakim-voice/HAI-C0041-overfitting-AR-fixed.mp4
+      - name: Publish finished teaching video on isolated public test branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add hakim-voice/HAI-C0041-overfitting-AR-fixed.mp4
+          git commit -m "Render Hakim AI episode 41 with correct Arabic RTL and free voice" || true
+          git push origin HEAD:hakim-ai-free-voice-test
       - name: Save voiceover files
         uses: actions/upload-artifact@v4
         with:
           name: hakim-c0041-arabic-voice
-          path: hakim-voice/output/*
+          path: |\n            hakim-voice/output/*\n            hakim-voice/HAI-C0041-overfitting-AR-fixed.mp4
           if-no-files-found: error
           retention-days: 7
