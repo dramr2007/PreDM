@@ -39,10 +39,26 @@ jobs:
             --config hakim-voice/model/ar_JO-kareem-medium.onnx.json \
             --output_file hakim-voice/output/HAI-C0041_arabic_voice_raw.wav \
             < hakim-voice/input_HAI-C0041.txt
-          ffmpeg -y -i hakim-voice/output/HAI-C0041_arabic_voice_raw.wav \
-            -af "highpass=f=70,loudnorm=I=-16:TP=-1.8:LRA=7" \
-            -ar 48000 -ac 1 hakim-voice/output/HAI-C0041_arabic_voice_master.wav
-          ffprobe -v error -show_entries format=duration -of default=nw=1 hakim-voice/output/HAI-C0041_arabic_voice_master.wav
+          python - <<'PY'
+          import wave, array, math, pathlib
+          source = pathlib.Path("hakim-voice/output/HAI-C0041_arabic_voice_raw.wav")
+          dest = pathlib.Path("hakim-voice/output/HAI-C0041_arabic_voice_master.wav")
+          with wave.open(str(source),"rb") as w:
+              channels=w.getnchannels(); rate=w.getframerate(); sw=w.getsampwidth(); n=w.getnframes()
+              raw=w.readframes(n)
+          if sw != 2:
+              raise ValueError(f"Unexpected sample width {sw}; input kept untouched")
+          samples=array.array("h"); samples.frombytes(raw)
+          peak=max(abs(v) for v in samples) if samples else 0
+          rms=math.sqrt(sum(v*v for v in samples)/len(samples)) if samples else 0
+          target_rms=32767*10**(-19/20)
+          limit=32767*10**(-1.8/20)
+          gain=min(target_rms/max(1,rms),limit/max(1,peak))
+          master=array.array("h",(int(max(-32768,min(32767,round(v*gain)))) for v in samples))
+          with wave.open(str(dest),"wb") as w:
+              w.setnchannels(channels); w.setsampwidth(sw); w.setframerate(rate); w.writeframes(master.tobytes())
+          print({"duration_s":round(n/rate,2),"sample_rate":rate,"channels":channels,"peak_before":peak,"peak_after":max(abs(v) for v in master),"rms_before":round(rms,2),"gain":round(gain,3),"output":str(dest)})
+          PY
       - name: Save voiceover files
         uses: actions/upload-artifact@v4
         with:
