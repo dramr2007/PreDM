@@ -58,9 +58,9 @@ ar(d,'تسع دوائر ومثلث واحد',(W//2,946),29,YELLOW,True)
 im.save(P/'corrected_00.png')
 
 im,d=base(1,'فئة أكثر من أخرى','UNBALANCED CLASSES','في هذا المثال: تسعين دائرة وعشرة مثلثات')
-for row in range(4):
- for col in range(8):
-  shape(d,156+col*59,485+row*89,(row==3 and col>=4),.8)
+for row in range(10):
+ for col in range(10):
+  shape(d,155+col*45,445+row*48,row==9,.40)
 ar(d,'فئات غير متساوية',(W//2,954),29,YELLOW,True)
 im.save(P/'corrected_01.png')
 
