@@ -99,6 +99,16 @@ ar(d,'لا، افحص كل حالة',(W//2,690),34,WHITE,True)
 ar(d,'شارِك الحلقة لتعمّ الفائدة',(W//2,925),27,YELLOW,True)
 im.save(P/'corrected_05.png')
 
+robot_path = P / 'hakim_x_robot.png'
+if robot_path.exists():
+ sprite=Image.open(robot_path).convert('RGBA')
+ sprite.thumbnail((80,110))
+ for idx in range(6):
+  path=P/f'corrected_{idx:02d}.png'
+  slide=Image.open(path).convert('RGBA')
+  slide.alpha_composite(sprite,(555,948))
+  slide.convert('RGB').save(path)
+
 with wave.open(str(P/'output/HAI-C0045_arabic_voice_master.wav')) as wf: duration=wf.getnframes()/wf.getframerate()
 print('audio duration:', duration)
 segments=[duration/6]*6
