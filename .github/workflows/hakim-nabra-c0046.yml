@@ -1,0 +1,62 @@
+name: Hakim AI original Saudi female voice 46
+on:
+  push:
+    branches: [hakim-ai-free-voice-test]
+    paths:
+      - "hakim-voice/nabra_runner_c0046.py"
+      - "hakim-voice/build_video_c0046.py"
+      - "hakim-voice/extract_hakim_x.py"
+      - ".github/workflows/hakim-nabra-c0046.yml"
+  workflow_dispatch:
+concurrency:
+  group: hakim-ai-voice-release
+  cancel-in-progress: false
+permissions:
+  contents: write
+jobs:
+  original-saudi-voice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 26
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install licensed Nabra Saudi inference dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y espeak-ng ffmpeg fonts-noto-core
+          python -m pip install --upgrade pip
+          python -m pip install torch soundfile huggingface_hub loguru attrs "transformers<5" "misaki[en]>=0.9.4" "phonemizer-fork>=3.3.2" camel-tools numpy
+      - name: Synthesize Hakim episode 45 with authentic Nabra-Saudi-7M af_msa
+        run: python hakim-voice/nabra_tts_c0046.py
+      - name: Install RTL and video assembly toolkit
+        run: python -m pip install pillow imageio-ffmpeg
+      - name: Recover 14 Oct reference mascot from original public video
+        run: |
+          curl --fail --location --retry 3 --retry-delay 3 'https://static.metricool.com/planner/202610/7198574-file-5367917671847355806.mp4' -o hakim-voice/reference_14oct.mp4
+          python hakim-voice/extract_hakim_x.py
+      - name: Render same-reference style Arabic vertical video
+        run: |
+          python hakim-voice/build_video_c0046.py
+          ffprobe -v error -show_entries format=duration:stream=codec_name,width,height,sample_rate -of json hakim-voice/HAI-C0046-class-imbalance-AR-fixed.mp4
+          test -s hakim-voice/HAI-C0046-class-imbalance-AR-fixed.mp4
+      - name: Commit completed video to isolated experimental branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add hakim-voice/HAI-C0046-class-imbalance-AR-fixed.mp4
+          git commit -m 'Render episode 46 with original Saudi Nabra voice and Hakim-X' || true
+          git fetch origin hakim-ai-free-voice-test
+          git rebase origin/hakim-ai-free-voice-test
+          git push origin HEAD:hakim-ai-free-voice-test
+      - name: Save actual free Saudi narrator master audio
+        uses: actions/upload-artifact@v4
+        with:
+          name: hakim-c0046-nabra-af_msa-video
+          path: |
+            hakim-voice/output/HAI-C0046_arabic_voice_master.wav
+            hakim-voice/HAI-C0046-class-imbalance-AR-fixed.mp4
+            hakim-voice/corrected_*.png
+          if-no-files-found: error
+          retention-days: 7
