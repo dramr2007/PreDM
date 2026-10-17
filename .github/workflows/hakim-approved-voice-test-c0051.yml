@@ -1,0 +1,49 @@
+name: Hakim approved voice QA test C0051 (no publishing)
+on:
+  push:
+    branches: [hakim-ai-free-voice-test]
+    paths:
+      - 'hakim-voice/voice_match_test_c0051.py'
+      - '.github/workflows/hakim-approved-voice-test-c0051.yml'
+  workflow_dispatch:
+concurrency:
+  group: hakim-ai-speaker-test-c0051
+  cancel-in-progress: false
+permissions:
+  contents: read
+jobs:
+  cpu-speech-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install CPU PyTorch
+        run: python -m pip install torch==2.6.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cpu
+      - name: Install MIT licensed Chatterbox multilingual
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install chatterbox-tts --no-deps
+          python -m pip install numpy==1.26.4 librosa==0.11.0 s3tokenizer transformers==5.2.0 diffusers==0.29.0 conformer==0.3.2 safetensors==0.5.3 spacy-pkuseg pykakasi==2.3.0 pyloudnorm omegaconf soundfile
+          python -m pip install git+https://github.com/resemble-ai/Perth.git@master
+      - name: Download already-public Hakim episode for private ephemeral noncommercial quality comparison
+        run: |
+          curl --fail --location --retry 3 --retry-delay 3 'https://static.metricool.com/planner/202610/7198574-file-13077214680274094263.mp4' -o /tmp/hakim_source_40.mp4
+          ffmpeg -hide_banner -loglevel error -y -ss 8 -t 11 -i /tmp/hakim_source_40.mp4 -ac 1 -ar 24000 hakim-voice/voice_test51_reference.wav
+          test -s hakim-voice/voice_test51_reference.wav
+      - name: Generate short new Arabic speech sample for sound-match evaluation only
+        run: python hakim-voice/voice_match_test_c0051.py
+      - name: Validate audio result
+        run: |
+          ffmpeg -v error -i hakim-voice/HAI-C0051_voice_match_test.wav -f null -
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 hakim-voice/HAI-C0051_voice_match_test.wav
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hakim-approved-voice-c0051-test-only
+          path: |
+            hakim-voice/HAI-C0051_voice_match_test.wav
+            hakim-voice/HAI-C0051_voice_test_QA.json
+          retention-days: 2
+          if-no-files-found: error
