@@ -28,8 +28,8 @@ jobs:
           sudo apt-get install -y espeak-ng ffmpeg fonts-noto-core
           python -m pip install --upgrade pip
           python -m pip install torch soundfile huggingface_hub loguru attrs "transformers<5" "misaki[en]>=0.9.4" "phonemizer-fork>=3.3.2" camel-tools numpy
-      - name: Synthesize Hakim episode 45 with authentic Nabra-Saudi-7M af_msa
-        run: python hakim-voice/nabra_tts_c0046.py
+      - name: Synthesize Hakim episode 46 with authentic Nabra-Saudi-7M af_msa
+        run: python hakim-voice/nabra_runner_c0046.py
       - name: Install RTL and video assembly toolkit
         run: python -m pip install pillow imageio-ffmpeg
       - name: Recover 14 Oct reference mascot from original public video
