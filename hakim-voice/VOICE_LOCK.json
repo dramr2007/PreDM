@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "voice_lock_status": "verified_original_provider_voice_id; generation_requires_authorization_and_validation",
+  "source_episode": "HAI-C0040",
+  "source_video_id": "2ab5d700737f435091767ff58c2ea7d9",
+  "source_provider": "HeyGen",
+  "exact_voice_id": "15ef8a736a734fbcbdb3c80678f631de",
+  "exact_voice_settings": {
+    "pitch": 0,
+    "speed": 1,
+    "volume": 1
+  },
+  "source_video_sha256": "6d8ca1d36d24493bcd5c406d56b1ebaa5e09b48c2c857abddde920aad3751cc7",
+  "private_reference_location": "ChatGPT Library /قناة حكيم الاساسية/المهارة الدائمة/HAKIM_AI_APPROVED_VOICE_REFERENCE_2026-10-17.mp4",
+  "reference_audio_is_private": true,
+  "legacy_voice": "Nabra-Saudi-7M / af_msa in HAI-C0045..0050 only; not this reference",
+  "new_episode_policy": "From HAI-C0051 onward do not schedule any audio without correct verified voice+rights+QA",
+  "audio_target": {
+    "integrated_lufs_reference": -14.9,
+    "true_peak_dbfs_reference": -3.2,
+    "sample_rate_reference_hz": 44100,
+    "aac_profile": "HE-AACv2"
+  },
+  "legal_notice": "HeyGen free-plan outputs have noncommercial restrictions in 2026-10-15 terms. Check rights before public/monetized publishing; do not incur charges without owner approval."
+}
