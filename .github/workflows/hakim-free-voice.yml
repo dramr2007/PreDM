@@ -80,6 +80,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: hakim-c0041-arabic-voice
-          path: |\n            hakim-voice/output/*\n            hakim-voice/HAI-C0041-overfitting-AR-fixed.mp4
+          path: |
+            hakim-voice/output/*
+            hakim-voice/HAI-C0041-overfitting-AR-fixed.mp4
           if-no-files-found: error
           retention-days: 7
