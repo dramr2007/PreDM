@@ -1,0 +1,54 @@
+name: Hakim C0051 approved voice short publish-ready
+on:
+  push:
+    branches: [hakim-ai-free-voice-test]
+    paths:
+      - 'hakim-voice/build_approved_voice_c0051.py'
+      - '.github/workflows/hakim-voice-c0051-publish-ready.yml'
+  workflow_dispatch:
+concurrency:
+  group: hakim-c0051-voice-short-release
+  cancel-in-progress: false
+permissions:
+  actions: read
+  contents: write
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Arabic layout fonts and encoding
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg fonts-noto-core
+          python -m pip install pillow
+      - name: Retrieve successful speech preview (NOT original reference)
+        uses: actions/download-artifact@v4
+        with:
+          name: hakim-approved-voice-c0051-test-only
+          run-id: 39068718219
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: hakim-voice/
+      - name: Make and fully decode the short educational episode
+        run: |
+          python hakim-voice/build_approved_voice_c0051.py
+          ffprobe -v error -show_entries format=duration,size:stream=codec_name,width,height -of json hakim-voice/HAI-C0051-classification-VOICE-TEST.mp4
+      - name: Publish render to isolated experimental branch (no auto social publication)
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add hakim-voice/HAI-C0051-classification-VOICE-TEST.mp4
+          git commit -m 'Hakim 51: short classification with user-approved voice sample' || true
+          git fetch origin hakim-ai-free-voice-test
+          git rebase origin/hakim-ai-free-voice-test
+          git push origin HEAD:hakim-ai-free-voice-test
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hakim-c0051-classification-voice-test-short-final
+          path: hakim-voice/HAI-C0051-classification-VOICE-TEST.mp4
+          retention-days: 7
+          if-no-files-found: error
