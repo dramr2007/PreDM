@@ -9,11 +9,18 @@ on:
   workflow_dispatch:
 concurrency:
   group: hakim-ai-leaders-20261018
-  cancel-in-progress: false
+  cancel-in-progress: true
 permissions:
   contents: write
 jobs:
   synth-and-render:
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        episode: [ELON, DARIO, MARK, SAM, JENSEN]
+    env:
+      EPISODE: ${{ matrix.episode }}
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
@@ -45,11 +52,17 @@ jobs:
           git commit -m 'Render five Hakim AI leader specials outside bank with approved voice'
           git fetch origin hakim-ai-free-voice-test
           git rebase origin/hakim-ai-free-voice-test
-          git push origin HEAD:hakim-ai-free-voice-test
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:hakim-ai-free-voice-test; then exit 0; fi
+            git fetch origin hakim-ai-free-voice-test
+            git rebase origin/hakim-ai-free-voice-test
+            sleep 2
+          done
+          exit 1
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: hakim-leaders-20261018
+          name: hakim-leaders-20261018-${{ matrix.episode }}
           path: |
             hakim-voice/leaders_20261018/outputs/*.mp4
             hakim-voice/leaders_20261018/outputs/*_QA.json
