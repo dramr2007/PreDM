@@ -1,0 +1,67 @@
+name: Hakim AI C0053 original-reference voice and Arabic visuals
+on:
+  push:
+    branches: [hakim-ai-free-voice-test]
+    paths:
+      - 'hakim-voice/input_HAI-C0053.txt'
+      - 'hakim-voice/voice_match_c0053.py'
+      - 'hakim-voice/build_approved_voice_c0053.py'
+      - '.github/workflows/hakim-approved-c0053.yml'
+  workflow_dispatch:
+concurrency:
+  group: hakim-ai-c0053-exclusive
+  cancel-in-progress: false
+permissions:
+  contents: write
+jobs:
+  synth-and-render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install CPU-based narrator dependencies
+        run: |
+          python -m pip install torch==2.6.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install --upgrade pip
+          python -m pip install --no-deps 'git+https://github.com/resemble-ai/chatterbox.git@master'
+          python -m pip install numpy==1.26.4 librosa==0.11.0 s3tokenizer transformers==5.2.0 diffusers==0.29.0 conformer==0.3.2 safetensors==0.5.3 spacy-pkuseg pykakasi==2.3.0 pyloudnorm omegaconf soundfile pillow
+          python -m pip install git+https://github.com/resemble-ai/Perth.git@master
+      - name: Install Arabic fonts and video encoder
+        run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg fonts-noto-core
+      - name: Extract temporary 11s sample from owner's existing public HAI-C0040
+        run: |
+          curl --fail --location --retry 3 --retry-delay 3 'https://static.metricool.com/planner/202610/7198574-file-13077214680274094263.mp4' -o /tmp/hakim_c0040_public.mp4
+          ffmpeg -hide_banner -loglevel error -y -ss 8 -t 11 -i /tmp/hakim_c0040_public.mp4 -ac 1 -ar 24000 hakim-voice/voice_test53_reference.wav
+          test -s hakim-voice/voice_test53_reference.wav
+      - name: Synthesize HAI-C0053 Arabic speech from approved reference
+        run: python hakim-voice/voice_match_c0053.py
+      - name: Create six synchronized educational scenes and final video
+        run: |
+          python hakim-voice/build_approved_voice_c0053.py
+          ffprobe -v error -show_entries format=duration,size:stream=codec_name,width,height -of json hakim-voice/HAI-C0053-clustering-VOICE-REVIEW.mp4
+          test -s hakim-voice/HAI-C0053-clustering-VOICE-REVIEW.mp4
+      - name: Remove private ephemeral voice source before publishing artifacts
+        run: |
+          rm -f hakim-voice/voice_test53_reference.wav /tmp/hakim_c0040_public.mp4
+      - name: Commit checked final MP4 to isolated branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add hakim-voice/HAI-C0053-clustering-VOICE-REVIEW.mp4
+          git commit -m 'HAI-C0053 clustering with approved reference voice and original visuals' || true
+          git fetch origin hakim-ai-free-voice-test
+          git rebase origin/hakim-ai-free-voice-test
+          git push origin HEAD:hakim-ai-free-voice-test
+      - name: Share QA deliverables, not reference
+        uses: actions/upload-artifact@v4
+        with:
+          name: hakim-c0053-clustering-voice-reviewed
+          path: |
+            hakim-voice/HAI-C0053-clustering-VOICE-REVIEW.mp4
+            hakim-voice/HAI-C0053_voice_QA.json
+            hakim-voice/voice53_scene_*.png
+          retention-days: 7
+          if-no-files-found: error
