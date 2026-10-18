@@ -8,6 +8,6 @@ Special IDs: HAI-S20261018-ELON, -DARIO, -MARK, -SAM, -JENSEN. They do not incre
 
 `episodes.json` contains six scenes per episode, exact Arabic narration, primary sources, and voice authorization. `produce.py` synthesizes each scene separately for genuine scene timing, checks finite audio/peak/RMS/duration, renders 720x1280 H264/AAC 30fps, normalizes loudness, and fully decodes each final output. Automated checks are not human listening. Review visual frames and speech before public posting.
 
-Run: https://github.com/dramr2007/PreDM/actions/runs/39141831164
+Run: https://github.com/dramr2007/PreDM/actions/runs/39142239918
 
 Publishing: only Metricool 7198574 to Facebook 716496105150405, Instagram hakimai2026, TikTok hakim.ai1, YouTube UCJm_IjZXF38EeAD32hvXEPw. Re-read queue before every write; persist stable post UUIDs and individual provider states. YouTube upload limits were observed on 18 October; do not bypass them or count pending as published. No extra paid services are authorized.
