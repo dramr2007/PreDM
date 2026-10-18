@@ -1,0 +1,58 @@
+name: Hakim AI five leader specials locked latest voice
+on:
+  push:
+    branches: [hakim-ai-free-voice-test]
+    paths:
+      - 'hakim-voice/leaders_20261018/episodes.json'
+      - 'hakim-voice/leaders_20261018/produce.py'
+      - '.github/workflows/hakim-leaders-20261018.yml'
+  workflow_dispatch:
+concurrency:
+  group: hakim-ai-leaders-20261018
+  cancel-in-progress: false
+permissions:
+  contents: write
+jobs:
+  synth-and-render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install approved free CPU narrator
+        run: |
+          python -m pip install torch==2.6.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install --no-deps 'git+https://github.com/resemble-ai/chatterbox.git@master'
+          python -m pip install numpy==1.26.4 librosa==0.11.0 s3tokenizer transformers==5.2.0 diffusers==0.29.0 conformer==0.3.2 safetensors==0.5.3 spacy-pkuseg pykakasi==2.3.0 pyloudnorm omegaconf soundfile pillow
+          python -m pip install git+https://github.com/resemble-ai/Perth.git@master
+          sudo apt-get update -qq && sudo apt-get install -y ffmpeg fonts-noto-core
+      - name: Temporary reference from approved latest-episode production voice
+        run: |
+          curl --fail --location --retry 2 'https://static.metricool.com/planner/202610/7198574-file-13077214680274094263.mp4' -o /tmp/hakim_reference.mp4
+          ffmpeg -v error -y -ss 8 -t 11 -i /tmp/hakim_reference.mp4 -ac 1 -ar 24000 hakim-voice/leaders_20261018/reference.wav
+      - name: Produce five specials with exact scene audio boundaries
+        run: python hakim-voice/leaders_20261018/produce.py
+      - name: Remove ephemeral reference
+        if: always()
+        run: rm -f /tmp/hakim_reference.mp4 hakim-voice/leaders_20261018/reference.wav
+      - name: Save reviewed outputs on isolated production branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add hakim-voice/leaders_20261018/outputs/*.mp4 hakim-voice/leaders_20261018/outputs/*_QA.json hakim-voice/leaders_20261018/outputs/*.png
+          git commit -m 'Render five Hakim AI leader specials outside bank with approved voice'
+          git fetch origin hakim-ai-free-voice-test
+          git rebase origin/hakim-ai-free-voice-test
+          git push origin HEAD:hakim-ai-free-voice-test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hakim-leaders-20261018
+          path: |
+            hakim-voice/leaders_20261018/outputs/*.mp4
+            hakim-voice/leaders_20261018/outputs/*_QA.json
+            hakim-voice/leaders_20261018/outputs/*.png
+          if-no-files-found: warn
+          retention-days: 7
