@@ -1,0 +1,45 @@
+{
+  "id": "HAI-C0061",
+  "title": "Accuracy: لماذا قد تخدعك دقة 99%؟",
+  "english": "ACCURACY",
+  "caption": "لماذا لا تكفي Accuracy لتقييم نموذج تصنيف؟ مثال ألف رسالة مع عشر رسائل مزعجة يكشف مشكلة الفئات النادرة.\nالمصدر: https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall\nالصوت والرسومات مولدة آليًا لأغراض تعليمية.\n#حكيم_AI #MachineLearning #Accuracy #AI",
+  "reference": "https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall",
+  "segments": [
+    {
+      "text": "تخيّل نظامًا يفحص ألف رسالة إلكترونية، منها عشر رسائل مزعجة فقط. هل نثق بنسبة دقة عالية دائمًا؟",
+      "head": "هل تكفي دقة 99%؟",
+      "sub": "مثال من ألف رسالة",
+      "visual": "emailbatch"
+    },
+    {
+      "text": "لو صنّف النظام جميع الرسائل على أنها عادية، فسيصيب في تسعمئة وتسعين مرة، ويفوّت عشر رسائل مزعجة.",
+      "head": "كل الرسائل عادية؟",
+      "sub": "نموذج لا يكتشف المزعج",
+      "visual": "predictnormal"
+    },
+    {
+      "text": "سيحصل رغم ذلك على دقة كلية، أو Accuracy، قدرها تسعة وتسعون بالمئة. الرقم رائع، لكن النتيجة ليست كذلك.",
+      "head": "٩٩٪ قد تكون مضللة",
+      "sub": "990 ÷ 1000 = 99%",
+      "visual": "accuracy99"
+    },
+    {
+      "text": "لأن النظام لم يكتشف أي رسالة مزعجة. في هذا المثال، الحساسية أو Recall للفئة المزعجة تساوي صفرًا.",
+      "head": "عشر حالات لم تُكتشف",
+      "sub": "Recall = 0%",
+      "visual": "missedspam"
+    },
+    {
+      "text": "دقة Accuracy هي عدد التوقعات الصحيحة، مقسومًا على عدد جميع التوقعات. وحدها قد تخفي أخطاء الفئات النادرة.",
+      "head": "ماذا تعني Accuracy؟",
+      "sub": "الصحيح ÷ الإجمالي",
+      "visual": "accuracyformula"
+    },
+    {
+      "text": "لذلك راجع أيضًا الحساسية ودقة التنبؤ الإيجابي، وتكلفة كل خطأ. لا تنبهر برقم واحد عند تقييم الذكاء الاصطناعي.",
+      "head": "كيف تقيّم النموذج؟",
+      "sub": "افهم الأخطاء قبل الاعتماد",
+      "visual": "accuracymetrics"
+    }
+  ]
+}
