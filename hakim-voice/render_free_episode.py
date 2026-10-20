@@ -99,7 +99,9 @@ def scene(i,seg):
             rect(d,(116,y,601,y+121),"#21576B",19,C["teal"] if j==0 else "#347489",2)
             ar(d,cap,360,y+43,37,C["yellow"],True)
             en(d,eng,360,y+90,19,C["pale"],True)
-    ar(d,seg.get("sub",""),360,1067,29,C["teal"])
+    sub=seg.get("sub","")
+    if sub.isascii(): en(d,sub,360,1067,27,C["teal"])
+    else: ar(d,sub,360,1067,29,C["teal"])
     d.line((59,1151,660,1151),fill="#1A6571",width=2)
     en(d,r"Dr\Amr kamel kahlil ahmed",360,1203,20,C["dim"])
     file=OUTPUT/("scene_%02d.png"%i);im.save(file);return file
