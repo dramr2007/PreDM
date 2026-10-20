@@ -1,0 +1,19 @@
+{
+  "id": "HAI-C0060",
+  "duration_s": 75.31,
+  "segment_durations_s": [
+    10.37,
+    13.51,
+    15.16,
+    11.27,
+    10.39,
+    14.61
+  ],
+  "video": "/home/runner/work/PreDM/PreDM/hakim-voice/output/HAI-C0060/HAI-C0060-FREE-MALE.mp4",
+  "bytes": 1507566,
+  "voice": "Piper ar_JO-kareem-medium, atempo=1.13",
+  "caption": "هل يمكن تصغير نموذج الذكاء الاصطناعي دون فقد كبير في الدقة؟ التكميم يقلل عدد البِتّات المستخدمة لتمثيل الأوزان، لكن الأداء والسرعة يعتمدان على النموذج والجهاز. #حكيم_AI #الذكاء_الاصطناعي #Quantization #AI",
+  "references": [
+    "https://docs.pytorch.org/ao/stable/workflows/inference.html"
+  ]
+}
