@@ -1,0 +1,52 @@
+name: HAKIM AI — free male Arabic episode production
+on:
+  push:
+    branches: [hakim-ai-free-voice-test]
+    paths:
+      - "hakim-voice/render_free_episode.py"
+      - "hakim-voice/episodes/HAI-C0060.json"
+      - ".github/workflows/hakim-free-episodes.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: hakim-free-episode-render
+  cancel-in-progress: false
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - name: Checkout the experiment branch
+        uses: actions/checkout@v4
+      - name: Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Free dependencies (no paid API)
+        run: |
+          python -m pip install "piper-tts==1.3.0" pillow
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-core
+      - name: Download Piper Kareem male Arabic model
+        run: |
+          mkdir -p hakim-voice/model hakim-voice/output
+          curl -fLSs --retry 3 https://huggingface.co/rhasspy/piper-voices/resolve/main/ar/ar_JO/kareem/medium/ar_JO-kareem-medium.onnx -o hakim-voice/model/ar_JO-kareem-medium.onnx
+          curl -fLSs --retry 3 https://huggingface.co/rhasspy/piper-voices/resolve/main/ar/ar_JO/kareem/medium/ar_JO-kareem-medium.onnx.json -o hakim-voice/model/ar_JO-kareem-medium.onnx.json
+      - name: Render Quantization episode with aligned six-scene narration
+        run: |
+          python hakim-voice/render_free_episode.py hakim-voice/episodes/HAI-C0060.json
+          ffprobe -v error -show_entries format=duration,size -show_entries stream=codec_name,width,height -of json hakim-voice/output/HAI-C0060/HAI-C0060-FREE-MALE.mp4
+      - name: Retain versioned draft video on isolated test branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add hakim-voice/output/HAI-C0060/HAI-C0060-FREE-MALE.mp4 hakim-voice/output/HAI-C0060/production_report.json
+          git commit -m "Render HAI-C0060 free male Arabic quantization educational short" || true
+          git push origin HEAD:hakim-ai-free-voice-test
+      - name: Keep QC files
+        uses: actions/upload-artifact@v4
+        with:
+          name: HAI-C0060-free-male-video-review
+          path: hakim-voice/output/HAI-C0060/
+          retention-days: 7
