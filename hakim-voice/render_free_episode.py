@@ -93,6 +93,50 @@ def scene(i,seg):
         d.ellipse((518,658,537,677),fill=C["orange"])
         rect(d,(135,752,585,835),"#25546A",20)
         ar(d,"المهم اختبار النتائج",360,795,34,"#FFFFFF",True)
+    elif v=="emailbatch":
+        en(d,"1,000 EMAILS",360,471,39,C["blue"],True)
+        for j in range(48):
+            x=102+(j%8)*64;y=541+(j//8)*53
+            rect(d,(x,y,x+47,y+35),C["orange"] if j<1 else "#257E82",7)
+        ar(d,"10 مزعجة فقط من كل ألف",360,906,32,C["yellow"],True)
+    elif v=="predictnormal":
+        for j in range(5):
+            x=106+j*104
+            rect(d,(x,511,x+77,604),C["orange"] if j==0 else "#23687C",11)
+            d.line((x+14,539,x+59,539),fill=C["pale"],width=4)
+            d.line((x+14,563,x+48,563),fill=C["pale"],width=4)
+        d.line((359,644,359,722),fill=C["yellow"],width=8)
+        d.polygon([(344,708),(374,708),(359,739)],fill=C["yellow"])
+        rect(d,(150,759,570,860),"#257866",20)
+        en(d,"ALL NORMAL",360,808,33,"#FFFFFF",True)
+    elif v=="accuracy99":
+        en(d,"990 / 1000",360,525,55,C["blue"],True)
+        d.line((149,589,575,589),fill=C["teal"],width=5)
+        en(d,"= 99%",360,696,77,C["yellow"],True)
+        ar(d,"دقة إجمالية مرتفعة",360,849,34,C["pale"],True)
+    elif v=="missedspam":
+        en(d,"10 SPAM MISSED",360,463,35,C["orange"],True)
+        for j in range(10):
+            x=144+(j%5)*93;y=559+(j//5)*116
+            rect(d,(x,y,x+66,y+82),"#7D3D4C",13,C["orange"],2)
+            d.line((x+11,y+20,x+56,y+62),fill="#FFBBBB",width=4)
+            d.line((x+56,y+20,x+11,y+62),fill="#FFBBBB",width=4)
+        en(d,"RECALL = 0%",360,871,39,C["yellow"],True)
+    elif v=="accuracyformula":
+        en(d,"ACCURACY",360,470,44,C["blue"],True)
+        rect(d,(135,566,585,795),"#1F5670",19)
+        en(d,"Correct predictions",360,619,25,C["pale"])
+        d.line((185,664,535,664),fill=C["yellow"],width=5)
+        en(d,"All predictions",360,715,26,C["pale"])
+        ar(d,"قد يخفي إخفاق الفئة النادرة",360,864,28,C["yellow"],True)
+    elif v=="accuracymetrics":
+        rect(d,(128,476,592,610),"#215E6B",18,C["teal"],2)
+        en(d,"RECALL",360,525,33,C["yellow"],True)
+        ar(d,"كم حالة إيجابية اكتشفنا؟",360,577,26,C["pale"])
+        rect(d,(128,666,592,801),"#215E6B",18,C["teal"],2)
+        en(d,"PRECISION",360,713,32,C["yellow"],True)
+        ar(d,"كم إنذارًا إيجابيًا صحيح؟",360,765,25,C["pale"])
+        ar(d,"لا تحكم من رقم واحد",360,899,32,C["orange"],True)
     else:
         for j,(cap,eng) in enumerate([("الجودة","QUALITY"),("الذاكرة","MEMORY"),("السرعة","LATENCY")]):
             y=462+j*152
