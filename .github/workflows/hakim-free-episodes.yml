@@ -48,8 +48,14 @@ jobs:
           else:
               changed=subprocess.check_output(["git","show","--pretty=format:","--name-only",os.environ["GITHUB_SHA"]],text=True).splitlines()
               candidates=[p for p in changed if p.startswith("hakim-voice/episodes/HAI-C") and p.endswith(".json")]
-              if len(candidates)!=1: raise RuntimeError("Need exactly one new episode per commit")
-              path=candidates[0]
+              if len(candidates)==1:
+                  path=candidates[0]
+              else:
+                  import glob
+                  files=sorted(glob.glob("hakim-voice/episodes/HAI-C[0-9][0-9][0-9][0-9].json"))
+                  if not files: raise RuntimeError("No episode JSON in experiment branch")
+                  path=files[-1]
+                  print("Fallback to latest queued episode:",path)
           with open(path,encoding="utf8") as f: ep=json.load(f)["id"]
           with open(os.environ["GITHUB_ENV"],"a") as f:
               f.write("EPISODE_FILE="+path+"\n")
