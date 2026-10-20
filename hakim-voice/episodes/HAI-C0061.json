@@ -20,7 +20,7 @@
     {
       "text": "سيحصل رغم ذلك على دقة كلية، أو Accuracy، قدرها تسعة وتسعون بالمئة. الرقم رائع، لكن النتيجة ليست كذلك.",
       "head": "٩٩٪ قد تكون مضللة",
-      "sub": "990 ÷ 1000 = 99%",
+      "sub": "990 / 1000 = 99%",
       "visual": "accuracy99"
     },
     {
@@ -31,7 +31,7 @@
     },
     {
       "text": "دقة Accuracy هي عدد التوقعات الصحيحة، مقسومًا على عدد جميع التوقعات. وحدها قد تخفي أخطاء الفئات النادرة.",
-      "head": "ماذا تعني Accuracy؟",
+      "head": "ما معنى الدقة الكلية؟",
       "sub": "الصحيح ÷ الإجمالي",
       "visual": "accuracyformula"
     },
@@ -43,5 +43,6 @@
     }
   ],
   "reviewed_on": "2026-10-20",
-  "qa_source_checked": true
+  "qa_source_checked": true,
+  "qa_visual_revision": "replace mixed-script heading and RTL-divisor footer after contact-sheet inspection"
 }
