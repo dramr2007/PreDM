@@ -3,10 +3,14 @@ on:
   push:
     branches: [hakim-ai-free-voice-test]
     paths:
-      - "hakim-voice/render_free_episode.py"
-      - "hakim-voice/episodes/HAI-C0060.json"
-      - ".github/workflows/hakim-free-episodes.yml"
+      - "hakim-voice/episodes/*.json"
   workflow_dispatch:
+    inputs:
+      episode_id:
+        description: "Episode ID e.g. HAI-C0061"
+        type: string
+        required: false
+        default: "HAI-C0060"
 permissions:
   contents: write
 concurrency:
@@ -33,20 +37,39 @@ jobs:
           mkdir -p hakim-voice/model hakim-voice/output
           curl -fLSs --retry 3 https://huggingface.co/rhasspy/piper-voices/resolve/main/ar/ar_JO/kareem/medium/ar_JO-kareem-medium.onnx -o hakim-voice/model/ar_JO-kareem-medium.onnx
           curl -fLSs --retry 3 https://huggingface.co/rhasspy/piper-voices/resolve/main/ar/ar_JO/kareem/medium/ar_JO-kareem-medium.onnx.json -o hakim-voice/model/ar_JO-kareem-medium.onnx.json
-      - name: Render Quantization episode with aligned six-scene narration
+      - name: Select episode from the changed metadata
         run: |
-          python hakim-voice/render_free_episode.py hakim-voice/episodes/HAI-C0060.json
-          ffprobe -v error -show_entries format=duration,size -show_entries stream=codec_name,width,height -of json hakim-voice/output/HAI-C0060/HAI-C0060-FREE-MALE.mp4
-      - name: Retain versioned draft video on isolated test branch
+          python - <<'PY'
+          import json,os,subprocess
+          if os.environ["GITHUB_EVENT_NAME"]=="workflow_dispatch":
+              event=json.load(open(os.environ["GITHUB_EVENT_PATH"]))
+              ep=event.get("inputs",{}).get("episode_id") or "HAI-C0060"
+              path="hakim-voice/episodes/"+ep+".json"
+          else:
+              changed=subprocess.check_output(["git","show","--pretty=format:","--name-only",os.environ["GITHUB_SHA"]],text=True).splitlines()
+              candidates=[p for p in changed if p.startswith("hakim-voice/episodes/HAI-C") and p.endswith(".json")]
+              if len(candidates)!=1: raise RuntimeError("Need exactly one new episode per commit")
+              path=candidates[0]
+          with open(path,encoding="utf8") as f: ep=json.load(f)["id"]
+          with open(os.environ["GITHUB_ENV"],"a") as f:
+              f.write("EPISODE_FILE="+path+"\n")
+              f.write("EPISODE_ID="+ep+"\n")
+          print("Rendering",ep)
+          PY
+      - name: Render six-scene video with free male Arabic narration
+        run: |
+          python hakim-voice/render_free_episode.py "$EPISODE_FILE"
+          ffprobe -v error -show_entries format=duration,size -show_entries stream=codec_name,width,height -of json "hakim-voice/output/$EPISODE_ID/$EPISODE_ID-FREE-MALE.mp4"
+      - name: Retain draft video on isolated experiment branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add hakim-voice/output/HAI-C0060/HAI-C0060-FREE-MALE.mp4 hakim-voice/output/HAI-C0060/production_report.json
-          git commit -m "Render HAI-C0060 free male Arabic quantization educational short" || true
+          git add "hakim-voice/output/$EPISODE_ID/$EPISODE_ID-FREE-MALE.mp4" "hakim-voice/output/$EPISODE_ID/production_report.json"
+          git commit -m "Render $EPISODE_ID free male Arabic educational short" || true
           git push origin HEAD:hakim-ai-free-voice-test
-      - name: Keep QC files
+      - name: Keep QC files for seven days
         uses: actions/upload-artifact@v4
         with:
-          name: HAI-C0060-free-male-video-review
-          path: hakim-voice/output/HAI-C0060/
+          name: free-male-video-review
+          path: hakim-voice/output/
           retention-days: 7
