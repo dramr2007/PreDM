@@ -1,0 +1,19 @@
+{
+  "id": "HAI-C0061",
+  "duration_s": 69.32,
+  "segment_durations_s": [
+    11.03,
+    11.73,
+    12.14,
+    10.56,
+    11.55,
+    12.32
+  ],
+  "video": "/home/runner/work/PreDM/PreDM/hakim-voice/output/HAI-C0061/HAI-C0061-FREE-MALE.mp4",
+  "bytes": 1406097,
+  "voice": "Piper ar_JO-kareem-medium, atempo=1.13",
+  "caption": "لماذا لا تكفي Accuracy لتقييم نموذج تصنيف؟ مثال ألف رسالة مع عشر رسائل مزعجة يكشف مشكلة الفئات النادرة.\nالمصدر: https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall\nالصوت والرسومات مولدة آليًا لأغراض تعليمية.\n#حكيم_AI #MachineLearning #Accuracy #AI",
+  "references": [
+    "https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall"
+  ]
+}
