@@ -41,5 +41,7 @@
       "sub": "افهم الأخطاء قبل الاعتماد",
       "visual": "accuracymetrics"
     }
-  ]
+  ],
+  "reviewed_on": "2026-10-20",
+  "qa_source_checked": true
 }
