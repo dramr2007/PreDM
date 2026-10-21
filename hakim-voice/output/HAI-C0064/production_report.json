@@ -1,0 +1,19 @@
+{
+  "id": "HAI-C0064",
+  "duration_s": 73.43,
+  "segment_durations_s": [
+    10.82,
+    13.16,
+    10.07,
+    12.62,
+    13.34,
+    13.42
+  ],
+  "video": "/home/runner/work/PreDM/PreDM/hakim-voice/output/HAI-C0064/HAI-C0064-FREE-MALE.mp4",
+  "bytes": 1510809,
+  "voice": "Piper ar_JO-kareem-medium, atempo=1.13",
+  "caption": "حكيم AI | الحلقة HAI-C0064 — النوعية Specificity\nافترض أن 100 صورة سلبية فعلًا: تعرّف النموذج على 90 بصورة صحيحة، وأصدر 10 إنذارات إيجابية خاطئة. النوعية = TN ÷ (TN + FP) = 90%. لا تخلط النوعية مع الحساسية Recall؛ النوعية تخص الحالات السلبية الحقيقية، والحساسية تخص الإيجابية.\nالمراجع: https://developers.google.com/machine-learning/glossary و https://developers.google.com/machine-learning/crash-course/classification/thresholding\nصوت ورسوم مولدة بالذكاء الاصطناعي.\n#حكيم_AI #Specificity #MachineLearning #الذكاء_الاصطناعي",
+  "references": [
+    "https://developers.google.com/machine-learning/glossary#specificity"
+  ]
+}
