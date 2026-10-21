@@ -222,6 +222,48 @@ def scene(i,seg):
             en(d,eng,360,y+45,33,C["yellow"],True)
             ar(d,cap,360,y+100,29,C["pale"],True)
         ar(d,"راقب النوعين من الأخطاء",360,904,30,C["orange"],True)
+    elif v=="specificityquestion":
+        en(d,"100 ACTUAL NEGATIVES",360,454,28,C["pale"],True)
+        for j in range(100):
+            x=116+(j%10)*49;y=520+(j//10)*33
+            rect(d,(x,y,x+34,y+25),"#247E79" if j<90 else "#99544F",5)
+        ar(d,"كم حالة سليمة عرفها؟",360,921,31,C["yellow"],True)
+    elif v=="specificitycounts":
+        en(d,"90 TRUE NEGATIVES",360,465,28,C["teal"],True)
+        for j in range(90):
+            x=117+(j%10)*49;y=531+(j//10)*31
+            rect(d,(x,y,x+34,y+23),"#2A927F",5)
+        rect(d,(126,838,596,900),"#964A4B",16)
+        ar(d,"عشرة إنذارات خاطئة",360,868,29,C["pale"],True)
+    elif v=="specificityformula":
+        en(d,"SPECIFICITY",360,468,39,C["blue"],True)
+        rect(d,(111,540,609,797),"#20566A",19)
+        en(d,"TRUE NEGATIVES",360,605,27,C["pale"],True)
+        d.line((178,654,548,654),fill=C["yellow"],width=5)
+        en(d,"ALL ACTUAL NEGATIVES",360,721,23,C["pale"],True)
+        ar(d,"السلبيات الصحيحة من الكل",360,880,27,C["yellow"])
+    elif v=="specificity90":
+        en(d,"90 / (90 + 10)",360,513,38,C["blue"],True)
+        d.line((146,610,573,610),fill=C["teal"],width=5)
+        en(d,"90%",360,743,103,C["yellow"],True)
+        ar(d,"حالة سليمة لم تُنذر",360,898,29,C["pale"])
+    elif v=="specificitycompare":
+        rect(d,(100,499,331,787),"#20566A",21,C["teal"],2)
+        rect(d,(390,499,621,787),"#20566A",21,C["yellow"],2)
+        en(d,"SPECIFICITY",215,567,23,C["teal"],True)
+        en(d,"RECALL",506,567,31,C["yellow"],True)
+        ar(d,"السلبيات",215,678,28,C["pale"],True)
+        ar(d,"الإيجابيات",506,678,28,C["pale"],True)
+        ar(d,"كلاهما مهم",360,904,34,C["yellow"],True)
+    elif v=="specificitytakeaway":
+        en(d,"THRESHOLD",360,474,31,C["blue"],True)
+        d.line((130,644,594,644),fill=C["pale"],width=10)
+        for xx in [166,235,304,373,442,511,580]:
+            d.ellipse((xx-9,635,xx+9,653),fill=C["teal"])
+        d.ellipse((405,625,443,663),fill=C["yellow"])
+        ar(d,"عتبة القرار تغيّر الأخطاء",360,750,30,C["pale"],True)
+        rect(d,(136,813,585,902),"#20566A",19)
+        ar(d,"اختبر الحساسية والنوعية",360,858,30,C["yellow"],True)
     else:
         for j,(cap,eng) in enumerate([("الجودة","QUALITY"),("الذاكرة","MEMORY"),("السرعة","LATENCY")]):
             y=462+j*152
