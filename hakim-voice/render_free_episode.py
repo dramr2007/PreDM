@@ -264,6 +264,48 @@ def scene(i,seg):
         ar(d,"عتبة القرار تغيّر الأخطاء",360,750,30,C["pale"],True)
         rect(d,(136,813,585,902),"#20566A",19)
         ar(d,"اختبر الحساسية والنوعية",360,858,30,C["yellow"],True)
+    elif v=="falsepositivequestion":
+        rect(d,(177,480,543,775),"#23566E",28,C["teal"],4)
+        d.polygon([(200,520),(360,655),(520,520)],outline=C["pale"],width=7)
+        en(d,"NORMAL EMAIL",360,721,27,C["pale"],True)
+        d.ellipse((481,447,562,528),fill=C["orange"])
+        en(d,"!",521,487,40,C["dark"],True)
+        ar(d,"لماذا ظهر إنذار؟",360,887,35,C["yellow"],True)
+    elif v=="falsepositiveprediction":
+        rect(d,(99,503,321,802),"#235A6A",24,C["teal"],2)
+        rect(d,(398,503,620,802),"#5B3C49",24,C["orange"],2)
+        en(d,"ACTUAL",211,553,31,C["teal"],True)
+        en(d,"PREDICTED",509,553,26,C["orange"],True)
+        en(d,"NORMAL",211,677,26,C["pale"],True)
+        en(d,"SPAM",509,677,31,C["pale"],True)
+        ar(d,"الحقيقة ليست التوقع",360,910,31,C["yellow"],True)
+    elif v=="falsepositivematrix":
+        en(d,"CONFUSION MATRIX",360,472,28,C["blue"],True)
+        for j,(x,y,code) in enumerate([(133,533,"TP"),(376,533,"FP"),(133,711,"FN"),(376,711,"TN")]):
+            rect(d,(x,y,x+212,y+142),"#934E4C" if code=="FP" else "#20566A",18,C["orange"] if code=="FP" else "#2B7585",3)
+            en(d,code,x+105,y+72,49,C["yellow"] if code=="FP" else C["pale"],True)
+        ar(d,"إنذار إيجابي لكنه خاطئ",360,902,27,C["yellow"],True)
+    elif v=="falsepositiveimpact":
+        rect(d,(129,482,590,631),"#235A6A",20,C["teal"],2)
+        ar(d,"رسالة سليمة",360,544,37,C["pale"],True)
+        d.line((359,654,359,727),fill=C["yellow"],width=7)
+        d.polygon([(346,717),(372,717),(359,742)],fill=C["yellow"])
+        rect(d,(129,763,590,881),"#894B50",20,C["orange"],2)
+        ar(d,"ذهبت بالخطأ للمزعج",360,820,29,C["pale"],True)
+    elif v=="falsepositivethreshold":
+        en(d,"DECISION THRESHOLD",360,470,28,C["blue"],True)
+        d.line((140,640,579,640),fill=C["pale"],width=12)
+        for xx in (166,248,330,412,494,572):d.ellipse((xx-9,631,xx+9,649),fill=C["teal"])
+        d.ellipse((371,620,411,660),fill=C["yellow"])
+        ar(d,"تغيير العتبة يغير الأخطاء",360,781,30,C["pale"],True)
+        ar(d,"لا توجد عتبة مثالية دائمًا",360,871,27,C["yellow"],True)
+    elif v=="falsepositivetakeaway":
+        rect(d,(108,488,612,636),"#20566A",19,C["teal"],2)
+        en(d,"FALSE POSITIVE",360,540,30,C["orange"],True)
+        ar(d,"إنذار لحالة غير موجودة",360,597,28,C["pale"])
+        rect(d,(108,695,612,857),"#20566A",19,C["yellow"],2)
+        ar(d,"تحقق من النتيجة والأثر",360,751,30,C["pale"],True)
+        ar(d,"وقس معدل الإنذارات الخاطئة",360,819,25,C["yellow"])
     else:
         for j,(cap,eng) in enumerate([("الجودة","QUALITY"),("الذاكرة","MEMORY"),("السرعة","LATENCY")]):
             y=462+j*152
