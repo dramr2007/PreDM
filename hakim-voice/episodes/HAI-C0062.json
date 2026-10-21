@@ -1,0 +1,48 @@
+{
+  "id": "HAI-C0062",
+  "title": "Precision: متى يكون الإنذار الإيجابي صحيحًا؟",
+  "english": "PRECISION",
+  "caption": "ما معنى Precision في تصنيف الذكاء الاصطناعي؟ من بين كل الإنذارات الإيجابية، كم إنذارًا كان صحيحًا؟ مثال 10 إنذارات منها 8 صحيحة يعطي Precision = 80%. هذا لا يكفي وحده؛ راجع Recall أيضًا.\nالمصدر: https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall\nرسوم وصوت اصطناعيان لأغراض تعليمية.\n#حكيم_AI #Precision #MachineLearning #AI",
+  "reference": "https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall",
+  "segments": [
+    {
+      "text": "هل تصدّق كل إنذار يصدره نموذج الذكاء الاصطناعي؟ قد يطلق إنذارات كثيرة، وبعضها خاطئ.",
+      "head": "هل كل إنذار صحيح؟",
+      "sub": "افهم دقة الإنذار",
+      "visual": "question"
+    },
+    {
+      "text": "تخيّل نموذجًا يصدر عشرة إنذارات بوجود رسالة مزعجة. بعد المراجعة، ثمانية إنذارات صحيحة واثنان خاطئان.",
+      "head": "عشرة إنذارات",
+      "sub": "8 صحيحة و2 خاطئة",
+      "visual": "bits"
+    },
+    {
+      "text": "دقة التنبؤ الإيجابي، أو بريسيجن، تساوي عدد الإيجابيات الصحيحة مقسومًا على كل التوقعات الإيجابية.",
+      "head": "ما معنى بريسيجن؟",
+      "sub": "الصحيح من الإيجابي",
+      "visual": "accuracyformula"
+    },
+    {
+      "text": "في مثالنا، ثمانية مقسومة على عشرة تساوي ثمانين بالمئة. أي أن إنذارين من كل عشرة كانا خاطئين.",
+      "head": "النتيجة ثمانون بالمئة",
+      "sub": "8 / 10 = 80%",
+      "visual": "accuracy99"
+    },
+    {
+      "text": "لكن ارتفاع بريسيجن لا يعني أن النموذج اكتشف كل الحالات المهمة. ربما فاتته حالات إيجابية كثيرة.",
+      "head": "قد تفوت حالات مهمة",
+      "sub": "Precision ليست Recall",
+      "visual": "tradeoff"
+    },
+    {
+      "text": "لذلك قيّم بريسيجن مع ريكول، وراجع تكلفة الإنذارات الخاطئة والحالات التي لم تُكتشف قبل استخدام النموذج.",
+      "head": "وازن بين المقياسين",
+      "sub": "افهم أخطاء النموذج",
+      "visual": "accuracymetrics"
+    }
+  ],
+  "reviewed_on": "2026-10-21",
+  "qa_source_checked": true,
+  "qa_visual_revision": "New six-scene source-aligned draft; visual QA required after render"
+}
