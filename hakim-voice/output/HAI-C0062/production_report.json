@@ -1,16 +1,16 @@
 {
   "id": "HAI-C0062",
-  "duration_s": 62.62,
+  "duration_s": 62.58,
   "segment_durations_s": [
-    8.95,
-    11.59,
-    11.33,
-    10.0,
-    10.27,
-    10.49
+    8.9,
+    11.45,
+    11.28,
+    10.39,
+    10.25,
+    10.32
   ],
   "video": "/home/runner/work/PreDM/PreDM/hakim-voice/output/HAI-C0062/HAI-C0062-FREE-MALE.mp4",
-  "bytes": 1276950,
+  "bytes": 1268025,
   "voice": "Piper ar_JO-kareem-medium, atempo=1.13",
   "caption": "ما معنى Precision في تصنيف الذكاء الاصطناعي؟ من بين كل الإنذارات الإيجابية، كم إنذارًا كان صحيحًا؟ مثال 10 إنذارات منها 8 صحيحة يعطي Precision = 80%. هذا لا يكفي وحده؛ راجع Recall أيضًا.\nالمصدر: https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall\nرسوم وصوت اصطناعيان لأغراض تعليمية.\n#حكيم_AI #Precision #MachineLearning #AI",
   "references": [
