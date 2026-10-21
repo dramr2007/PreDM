@@ -137,6 +137,49 @@ def scene(i,seg):
         en(d,"PRECISION",360,713,32,C["yellow"],True)
         ar(d,"كم إنذارًا إيجابيًا صحيح؟",360,765,25,C["pale"])
         ar(d,"لا تحكم من رقم واحد",360,899,32,C["orange"],True)
+
+    elif v=="precisionquestion":
+        ar(d,"إنذارات النموذج",360,455,36,C["pale"],True)
+        for j in range(10):
+            x=135+(j%5)*95;y=525+(j//5)*137
+            rect(d,(x,y,x+68,y+94),C["teal"] if j<8 else C["orange"],14)
+            d.ellipse((x+28,y+16,x+40,y+29),fill=C["dark"])
+            d.line((x+34,y+40,x+34,y+69),fill=C["dark"],width=5)
+        ar(d,"هل جميعها صحيحة؟",360,901,34,C["yellow"],True)
+    elif v=="precisioncounts":
+        en(d,"10 POSITIVE ALERTS",360,461,29,C["pale"],True)
+        for j in range(10):
+            x=124+(j%5)*99;y=549+(j//5)*132
+            rect(d,(x,y,x+78,y+87),"#236D64" if j<8 else "#964A4B",13)
+            en(d,"OK" if j<8 else "X",x+39,y+43,29,C["teal"] if j<8 else C["orange"],True)
+        ar(d,"٨ صحيحة و٢ خاطئة",360,895,35,C["yellow"],True)
+    elif v=="precisionformula":
+        en(d,"PRECISION",360,465,39,C["blue"],True)
+        rect(d,(119,538,601,783),"#20566A",19)
+        en(d,"TRUE POSITIVE",360,593,24,C["pale"],True)
+        d.line((179,645,542,645),fill=C["yellow"],width=5)
+        en(d,"ALL PREDICTED POSITIVE",360,707,18,C["pale"],True)
+        ar(d,"من تنبأنا بأنها إيجابية",360,864,28,C["yellow"],True)
+    elif v=="precision80":
+        en(d,"8 / (8 + 2)",360,507,49,C["blue"],True)
+        d.line((150,599,570,599),fill=C["teal"],width=5)
+        en(d,"80%",360,727,98,C["yellow"],True)
+        ar(d,"إنذاران خاطئان",360,893,33,C["pale"],True)
+    elif v=="precisionmiss":
+        ar(d,"إنذارات صحيحة",360,474,31,C["teal"],True)
+        for j in range(8):
+            x=146+(j%4)*110;y=526+(j//4)*85
+            rect(d,(x,y,x+81,y+57),"#278873",11)
+        d.line((125,760,595,760),fill=C["orange"],width=4)
+        ar(d,"لكن بعض الحالات قد تفوت",360,857,32,C["yellow"],True)
+    elif v=="precisionboth":
+        rect(d,(97,503,331,763),"#235A6A",20,C["teal"],2)
+        rect(d,(390,503,624,763),"#235A6A",20,C["yellow"],2)
+        en(d,"PRECISION",214,565,24,C["teal"],True)
+        en(d,"RECALL",507,565,28,C["yellow"],True)
+        ar(d,"صدق الإنذارات",214,674,24,C["pale"],True)
+        ar(d,"اكتشاف الحالات",507,674,24,C["pale"],True)
+        ar(d,"قيّم المقياسين معًا",360,889,33,C["yellow"],True)
     else:
         for j,(cap,eng) in enumerate([("الجودة","QUALITY"),("الذاكرة","MEMORY"),("السرعة","LATENCY")]):
             y=462+j*152
