@@ -1,0 +1,19 @@
+{
+  "id": "HAI-C0065",
+  "duration_s": 71.77,
+  "segment_durations_s": [
+    11.99,
+    10.97,
+    9.89,
+    14.29,
+    11.9,
+    12.72
+  ],
+  "video": "/home/runner/work/PreDM/PreDM/hakim-voice/output/HAI-C0065/HAI-C0065-FREE-MALE.mp4",
+  "bytes": 1443295,
+  "voice": "Piper ar_JO-kareem-medium, atempo=1.13",
+  "caption": "حكيم AI | HAI-C0065 — False Positive الإيجابي الكاذب\nعندما يصنّف نموذج رسالة سليمة على أنها مزعجة، فإننا نسميه إنذارًا إيجابيًا كاذبًا. الحقيقة: لا يوجد بريد مزعج؛ التوقع: يوجد. انتبه إلى تكلفة الإنذارات الخاطئة وأثر عتبة التصنيف، ولا تعتمد على تنبيه النموذج دون تحقق مناسب.\nالمصدر: https://developers.google.com/machine-learning/crash-course/classification/thresholding\nصوت ورسوم بالذكاء الاصطناعي.\n#حكيم_AI #FalsePositive #AI #MachineLearning",
+  "references": [
+    "https://developers.google.com/machine-learning/crash-course/classification/thresholding"
+  ]
+}
