@@ -1,0 +1,48 @@
+{
+  "id": "HAI-C0065",
+  "title": "False Positive: لماذا يظهر إنذار رغم غياب الحالة؟",
+  "english": "FALSE POSITIVE",
+  "caption": "حكيم AI | HAI-C0065 — False Positive الإيجابي الكاذب\nعندما يصنّف نموذج رسالة سليمة على أنها مزعجة، فإننا نسميه إنذارًا إيجابيًا كاذبًا. الحقيقة: لا يوجد بريد مزعج؛ التوقع: يوجد. انتبه إلى تكلفة الإنذارات الخاطئة وأثر عتبة التصنيف، ولا تعتمد على تنبيه النموذج دون تحقق مناسب.\nالمصدر: https://developers.google.com/machine-learning/crash-course/classification/thresholding\nصوت ورسوم بالذكاء الاصطناعي.\n#حكيم_AI #FalsePositive #AI #MachineLearning",
+  "reference": "https://developers.google.com/machine-learning/crash-course/classification/thresholding",
+  "segments": [
+    {
+      "text": "تخيل رسالة إلكترونية عادية. فجأة، نقلها نموذج الذكاء الاصطناعي إلى صندوق الرسائل المزعجة. ماذا نسمي هذا الخطأ؟",
+      "head": "إنذار لرسالة سليمة؟",
+      "sub": "قد يخطئ نموذج التصنيف",
+      "visual": "falsepositivequestion"
+    },
+    {
+      "text": "هذا إيجابي كاذب، أو فولس بوزيتيف. الحقيقة تقول إن الرسالة عادية، لكن النموذج توقع أنها مزعجة.",
+      "head": "إيجابي كاذب",
+      "sub": "الحقيقة: سلبية | التوقع: إيجابي",
+      "visual": "falsepositiveprediction"
+    },
+    {
+      "text": "في مصفوفة الالتباس، نكتب هذا الخطأ بالحرفين إف بي. إنه توقع إيجابي رغم أن الحالة سلبية فعلًا.",
+      "head": "أين يظهر الخطأ؟",
+      "sub": "FP = False Positive",
+      "visual": "falsepositivematrix"
+    },
+    {
+      "text": "وللخطأ أثر حقيقي: قد تختفي رسالة مهمة في صندوق المزعج. وفي تطبيقات أخرى قد يسبب الإنذار الكاذب فحوصًا أو مراجعات غير ضرورية.",
+      "head": "لماذا يهم هذا الخطأ؟",
+      "sub": "كل إنذار قد تكون له تكلفة",
+      "visual": "falsepositiveimpact"
+    },
+    {
+      "text": "تغيير عتبة التصنيف قد يقلل الإنذارات الكاذبة، لكنه قد يزيد الحالات التي يفوّتها النموذج. ولهذا توجد مفاضلة.",
+      "head": "العتبة تغير النتائج",
+      "sub": "وازن بين نوعي الأخطاء",
+      "visual": "falsepositivethreshold"
+    },
+    {
+      "text": "الخلاصة: الإيجابي الكاذب ليس كذبًا متعمدًا من الآلة، بل نوع محدد من أخطاء التصنيف. اسأل دائمًا: كم مرة حدث، وما أثره؟",
+      "head": "لا تصدق كل إنذار",
+      "sub": "قِس الخطأ وراجع القرار",
+      "visual": "falsepositivetakeaway"
+    }
+  ],
+  "reviewed_on": "2026-10-21",
+  "qa_source_checked": true,
+  "qa_visual_revision": "Six dedicated False Positive visual scenes; review rendered output before publication"
+}
