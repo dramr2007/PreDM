@@ -1,0 +1,48 @@
+{
+  "id": "HAI-C0063",
+  "title": "Recall: كم حالة إيجابية اكتشف نموذج الذكاء الاصطناعي؟",
+  "english": "RECALL",
+  "caption": "حكيم AI | HAI-C0063 — Recall (الحساسية أو الاسترجاع)\nمن بين 10 رسائل مزعجة فعلًا، اكتشف النموذج 8 وفوّت 2، لذلك Recall = 8 ÷ (8+2) = 80%. يختلف Recall عن Precision؛ الأول يقيس كم حالة حقيقية اكتشفنا، والثاني مدى صحة الإنذارات الإيجابية. راجع المقياسين وتكلفة الأخطاء معًا.\nالمصدر: https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall\nرسوم وتعليق صوتي مولدان بالذكاء الاصطناعي.\n#حكيم_AI #Recall #MachineLearning #ArtificialIntelligence",
+  "reference": "https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall",
+  "segments": [
+    {
+      "text": "لديك عشر رسائل مزعجة فعلًا. اكتشف نموذج الذكاء الاصطناعي ثماني رسائل، لكنه فوّت رسالتين. كيف نقيس قدرته على الاكتشاف؟",
+      "head": "كم حالة يكتشف النموذج؟",
+      "sub": "عشر حالات حقيقية",
+      "visual": "recallquestion"
+    },
+    {
+      "text": "مقياس ريكول، أو الحساسية، يركّز على الحالات الإيجابية الحقيقية. في مثالنا، اكتشفنا ثماني رسائل، ولم نكتشف رسالتين.",
+      "head": "اكتشف ثماني حالات",
+      "sub": "وفاتته حالتان",
+      "visual": "recallcounts"
+    },
+    {
+      "text": "نحسب ريكول بقسمة الحالات الإيجابية المكتشفة بشكل صحيح، على جميع الحالات الإيجابية الحقيقية، بما فيها التي فاتتنا.",
+      "head": "كيف نحسب Recall؟",
+      "sub": "المكتشف ÷ الإيجابي الحقيقي",
+      "visual": "recallformula"
+    },
+    {
+      "text": "ثمانية مقسومة على مجموع ثمانية واثنين، تساوي ثمانين بالمئة. إذن النموذج اكتشف ثمانين بالمئة من الرسائل المزعجة الفعلية.",
+      "head": "ريكول يساوي ثمانين بالمئة",
+      "sub": "8 / (8 + 2) = 80%",
+      "visual": "recall80"
+    },
+    {
+      "text": "لا تخلط بين ريكول وبريسيجن. ريكول يسأل: كم حالة حقيقية اكتشفنا؟ أما بريسيجن فيسأل: كم إنذار إيجابي كان صحيحًا؟",
+      "head": "ريكول أم بريسيجن؟",
+      "sub": "سؤالان مختلفان",
+      "visual": "recalltradeoff"
+    },
+    {
+      "text": "قبل الاعتماد على نموذج تصنيف، راجع المقياسين معًا، واسأل: هل الأهم تقليل الحالات الفائتة، أم تقليل الإنذارات الخاطئة؟",
+      "head": "وازن بين الأخطاء",
+      "sub": "لا تعتمد على رقم واحد",
+      "visual": "recalltakeaway"
+    }
+  ],
+  "reviewed_on": "2026-10-21",
+  "qa_source_checked": true,
+  "qa_visual_revision": "Six dedicated Recall scenes added to renderer; rendered video still requires quality check before publishing"
+}
