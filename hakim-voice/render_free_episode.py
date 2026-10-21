@@ -180,6 +180,48 @@ def scene(i,seg):
         ar(d,"صدق الإنذارات",214,674,24,C["pale"],True)
         ar(d,"اكتشاف الحالات",507,674,24,C["pale"],True)
         ar(d,"قيّم المقياسين معًا",360,889,33,C["yellow"],True)
+    elif v=="recallquestion":
+        ar(d,"أمامك عشر رسائل مزعجة",360,461,32,C["pale"],True)
+        for j in range(10):
+            x=125+(j%5)*97;y=543+(j//5)*133
+            rect(d,(x,y,x+73,y+89),"#257E82" if j<8 else "#964A4B",13)
+            d.line((x+10,y+27,x+62,y+27),fill=C["pale"],width=4)
+            d.line((x+10,y+53,x+50,y+53),fill=C["pale"],width=4)
+        ar(d,"كم رسالة اكتشف النموذج؟",360,882,30,C["yellow"],True)
+    elif v=="recallcounts":
+        en(d,"10 ACTUAL POSITIVES",360,465,30,C["pale"],True)
+        for j in range(10):
+            x=126+(j%5)*97;y=546+(j//5)*139
+            good=j<8
+            rect(d,(x,y,x+74,y+92),"#236D64" if good else "#964A4B",13)
+            en(d,"OK" if good else "X",x+37,y+47,30,C["teal"] if good else C["orange"],True)
+        ar(d,"اكتشف ٨ وفاتته ٢",360,897,35,C["yellow"],True)
+    elif v=="recallformula":
+        en(d,"RECALL",360,465,46,C["blue"],True)
+        rect(d,(114,536,606,796),"#20566A",18)
+        en(d,"TRUE POSITIVES FOUND",360,597,22,C["pale"],True)
+        d.line((169,655,550,655),fill=C["yellow"],width=5)
+        en(d,"ALL ACTUAL POSITIVES",360,715,21,C["pale"],True)
+        ar(d,"من بين الحالات الحقيقية",360,877,30,C["yellow"],True)
+    elif v=="recall80":
+        en(d,"8 / (8 + 2)",360,512,46,C["blue"],True)
+        d.line((154,604,567,604),fill=C["teal"],width=5)
+        en(d,"80%",360,735,97,C["yellow"],True)
+        ar(d,"لم يكتشف حالتين",360,892,33,C["pale"],True)
+    elif v=="recalltradeoff":
+        rect(d,(105,482,615,661),"#20566A",24,C["teal"],2)
+        en(d,"RECALL",360,539,37,C["yellow"],True)
+        ar(d,"من الحالات الحقيقية",360,609,30,C["pale"])
+        rect(d,(105,712,615,865),"#20566A",24,C["orange"],2)
+        en(d,"PRECISION",360,761,34,C["teal"],True)
+        ar(d,"من الإنذارات الإيجابية",360,827,28,C["pale"])
+    elif v=="recalltakeaway":
+        for j,(eng,cap) in enumerate([("RECALL","كم حالة اكتشفنا؟"),("PRECISION","كم إنذارًا صحيح؟")]):
+            y=484+j*177
+            rect(d,(104,y,616,y+140),"#235A6A",21,C["teal"] if j==0 else C["yellow"],2)
+            en(d,eng,360,y+45,33,C["yellow"],True)
+            ar(d,cap,360,y+100,29,C["pale"],True)
+        ar(d,"راقب النوعين من الأخطاء",360,904,30,C["orange"],True)
     else:
         for j,(cap,eng) in enumerate([("الجودة","QUALITY"),("الذاكرة","MEMORY"),("السرعة","LATENCY")]):
             y=462+j*152
