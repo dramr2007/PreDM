@@ -1,0 +1,19 @@
+{
+  "id": "HAI-C0063",
+  "duration_s": 75.35,
+  "segment_durations_s": [
+    13.46,
+    12.81,
+    12.72,
+    12.66,
+    11.39,
+    12.3
+  ],
+  "video": "/home/runner/work/PreDM/PreDM/hakim-voice/output/HAI-C0063/HAI-C0063-FREE-MALE.mp4",
+  "bytes": 1542809,
+  "voice": "Piper ar_JO-kareem-medium, atempo=1.13",
+  "caption": "حكيم AI | HAI-C0063 — Recall (الحساسية أو الاسترجاع)\nمن بين 10 رسائل مزعجة فعلًا، اكتشف النموذج 8 وفوّت 2، لذلك Recall = 8 ÷ (8+2) = 80%. يختلف Recall عن Precision؛ الأول يقيس كم حالة حقيقية اكتشفنا، والثاني مدى صحة الإنذارات الإيجابية. راجع المقياسين وتكلفة الأخطاء معًا.\nالمصدر: https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall\nرسوم وتعليق صوتي مولدان بالذكاء الاصطناعي.\n#حكيم_AI #Recall #MachineLearning #ArtificialIntelligence",
+  "references": [
+    "https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall"
+  ]
+}
