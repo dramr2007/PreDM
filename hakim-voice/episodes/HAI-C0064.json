@@ -1,0 +1,48 @@
+{
+  "id": "HAI-C0064",
+  "title": "Specificity: هل يعرف النموذج الحالات السلبية؟",
+  "english": "SPECIFICITY",
+  "caption": "حكيم AI | الحلقة HAI-C0064 — النوعية Specificity\nافترض أن 100 صورة سلبية فعلًا: تعرّف النموذج على 90 بصورة صحيحة، وأصدر 10 إنذارات إيجابية خاطئة. النوعية = TN ÷ (TN + FP) = 90%. لا تخلط النوعية مع الحساسية Recall؛ النوعية تخص الحالات السلبية الحقيقية، والحساسية تخص الإيجابية.\nالمراجع: https://developers.google.com/machine-learning/glossary و https://developers.google.com/machine-learning/crash-course/classification/thresholding\nصوت ورسوم مولدة بالذكاء الاصطناعي.\n#حكيم_AI #Specificity #MachineLearning #الذكاء_الاصطناعي",
+  "reference": "https://developers.google.com/machine-learning/glossary#specificity",
+  "segments": [
+    {
+      "text": "تخيّل مئة صورة لا تحتوي على العلامة التي نبحث عنها. هل يستطيع نموذج الذكاء الاصطناعي معرفة أنها سلبية؟",
+      "head": "هل يميز الحالات السلبية؟",
+      "sub": "100 صورة سلبية فعلًا",
+      "visual": "specificityquestion"
+    },
+    {
+      "text": "قال النموذج بشكل صحيح عن تسعين صورة إنها سلبية، لكنه أطلق عشرة إنذارات إيجابية خاطئة. هنا نستخدم مقياس النوعية.",
+      "head": "تسعون تصنيفًا صحيحًا",
+      "sub": "10 إنذارات خاطئة",
+      "visual": "specificitycounts"
+    },
+    {
+      "text": "النوعية، أو سبيسيفيسيتي، هي عدد السلبيات الصحيحة مقسومًا على جميع الحالات السلبية الحقيقية.",
+      "head": "كيف نحسب النوعية؟",
+      "sub": "TN / (TN + FP)",
+      "visual": "specificityformula"
+    },
+    {
+      "text": "تسعون مقسومة على مئة تساوي تسعين بالمئة. هذا يعني أن النموذج تعرف بشكل صحيح على تسعين بالمئة من السلبيات الفعلية.",
+      "head": "النوعية تسعون بالمئة",
+      "sub": "90 / (90 + 10) = 90%",
+      "visual": "specificity90"
+    },
+    {
+      "text": "انتبه للفرق: النوعية تقيس اكتشاف السلبيات، والحساسية أو ريكول تقيس اكتشاف الإيجابيات الحقيقية. لا يغني أحدهما عن الآخر.",
+      "head": "النوعية أم الحساسية؟",
+      "sub": "سؤالان مختلفان",
+      "visual": "specificitycompare"
+    },
+    {
+      "text": "إذا غيرنا عتبة التصنيف، قد تتغير الإنذارات الخاطئة والحالات الفائتة. لذلك راجع النوعية والحساسية معًا قبل اعتماد النموذج.",
+      "head": "افحص أثر عتبة القرار",
+      "sub": "لا تعتمد على رقم واحد",
+      "visual": "specificitytakeaway"
+    }
+  ],
+  "reviewed_on": "2026-10-21",
+  "qa_source_checked": true,
+  "qa_visual_revision": "Six dedicated specificity scenes; verify output frames and audio before publication"
+}
