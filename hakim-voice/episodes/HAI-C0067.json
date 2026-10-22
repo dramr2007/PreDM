@@ -1,0 +1,48 @@
+{
+  "id": "HAI-C0067",
+  "title": "Confusion Matrix: كيف تكشف مصفوفة الالتباس أخطاء النموذج؟",
+  "english": "CONFUSION MATRIX",
+  "caption": "حكيم AI | الحلقة 67 — Confusion Matrix (مصفوفة الالتباس)\nنقارن توقعات نموذج تصنيف ثنائي بالنتائج الحقيقية في 4 فئات: TP إيجابي صحيح، TN سلبي صحيح، FP إيجابي كاذب، FN سلبي كاذب. مثال تعليمي: TP=8, TN=7, FP=3, FN=2 من أصل 20 حالة؛ الدقة الكلية Accuracy = (8+7)/20 = 75%. اقرأ تسميات المحاور أولًا، فقد يختلف ترتيب الخانات بين المراجع.\nالمصدر: https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall\nصوت ورسوم تعليمية مولدة بالذكاء الاصطناعي.\n#حكيم_AI #ConfusionMatrix #MachineLearning",
+  "reference": "https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall",
+  "segments": [
+    {
+      "text": "هل تعطيك نسبة دقة واحدة الصورة كاملة عن أداء نموذج تصنيف؟ مصفوفة الالتباس تكشف بالتفصيل أين أصاب وأين أخطأ.",
+      "head": "أين يصيب النموذج؟",
+      "sub": "Confusion Matrix",
+      "visual": "cmquestion"
+    },
+    {
+      "text": "هي جدول يقارن التوقع بالحقيقة. في مثال ثنائي، لدينا صفوف للحالات الحقيقية وأعمدة لتوقعات النموذج. اقرأ عناوينهما أولًا.",
+      "head": "قارن التوقع بالحقيقة",
+      "sub": "اقرأ تسميات المحاور",
+      "visual": "cmaxes"
+    },
+    {
+      "text": "الإيجابي الصحيح نسميه تي بي، والسلبي الصحيح تي إن. في الحالتين، توقع النموذج يطابق النتيجة الحقيقية.",
+      "head": "توقعان صحيحان",
+      "sub": "TP و TN",
+      "visual": "cmcorrect"
+    },
+    {
+      "text": "أما إف بي فيعني إنذارًا إيجابيًا خاطئًا، وإف إن يعني حالة إيجابية فاتت النموذج. هذان نوعان مختلفان من الخطأ.",
+      "head": "نوعان من الأخطاء",
+      "sub": "FP و FN",
+      "visual": "cmerrors"
+    },
+    {
+      "text": "في مثال من عشرين حالة، لدينا ثمانية إيجابيات صحيحة، وسبعة سلبيات صحيحة، وثلاثة إنذارات خاطئة وحالتان فائتتان. الدقة الكلية هنا خمسة وسبعون بالمئة.",
+      "head": "مثال: عشرون حالة",
+      "sub": "(8 + 7) / 20 = 75%",
+      "visual": "cmnumbers"
+    },
+    {
+      "text": "الخلاصة: ابدأ بتسميات الصفوف والأعمدة؛ فقد يختلف ترتيب الخانات. بعد ذلك افحص كل نوع من الأخطاء قبل تقييم النموذج.",
+      "head": "اقرأ المصفوفة بذكاء",
+      "sub": "المحاور أولًا ثم الأخطاء",
+      "visual": "cmtakeaway"
+    }
+  ],
+  "reviewed_on": "2026-10-22",
+  "qa_source_checked": true,
+  "qa_visual_revision": "six dedicated confusion matrix diagrams; numerical example 8 TP 7 TN 3 FP 2 FN; QA after rendering"
+}
