@@ -1,0 +1,19 @@
+{
+  "id": "HAI-C0067",
+  "duration_s": 77.92,
+  "segment_durations_s": [
+    11.54,
+    13.48,
+    10.89,
+    11.76,
+    17.68,
+    12.57
+  ],
+  "video": "/home/runner/work/PreDM/PreDM/hakim-voice/output/HAI-C0067/HAI-C0067-FREE-MALE.mp4",
+  "bytes": 1579302,
+  "voice": "Piper ar_JO-kareem-medium, atempo=1.13",
+  "caption": "حكيم AI | الحلقة 67 — Confusion Matrix (مصفوفة الالتباس)\nنقارن توقعات نموذج تصنيف ثنائي بالنتائج الحقيقية في 4 فئات: TP إيجابي صحيح، TN سلبي صحيح، FP إيجابي كاذب، FN سلبي كاذب. مثال تعليمي: TP=8, TN=7, FP=3, FN=2 من أصل 20 حالة؛ الدقة الكلية Accuracy = (8+7)/20 = 75%. اقرأ تسميات المحاور أولًا، فقد يختلف ترتيب الخانات بين المراجع.\nالمصدر: https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall\nصوت ورسوم تعليمية مولدة بالذكاء الاصطناعي.\n#حكيم_AI #ConfusionMatrix #MachineLearning",
+  "references": [
+    "https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall"
+  ]
+}
