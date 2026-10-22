@@ -1,0 +1,48 @@
+{
+  "id": "HAI-C0066",
+  "title": "False Negative: ماذا لو لم يكتشف النموذج حالة موجودة؟",
+  "english": "FALSE NEGATIVE",
+  "caption": "حكيم AI | الحلقة 66 — False Negative (السلبي الكاذب)\nعندما يوجد مثلث فعلًا لكن نموذج التعرّف على الأشكال يقول «لا يوجد مثلث»، فهذه نتيجة سلبية كاذبة FN. في مثال عشر حالات إيجابية حقيقية، إذا اكتشف النموذج 8 وفوّت 2، يصبح Recall = 8/(8+2) = 80%. غياب التنبيه لا يثبت غياب الحالة.\nالمصدر: https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall\nصوت ورسوم تعليمية مولدة بالذكاء الاصطناعي.\n#حكيم_AI #FalseNegative #Recall #MachineLearning",
+  "reference": "https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall",
+  "segments": [
+    {
+      "text": "هل عدم صدور إنذار يعني دائمًا أن الشيء غير موجود؟ تخيل نظام ذكاء اصطناعي يبحث عن المثلثات بين الأشكال.",
+      "head": "غياب الإنذار لا يكفي",
+      "sub": "False Negative",
+      "visual": "fnquestion"
+    },
+    {
+      "text": "أمامه مثلث واضح، لكنه يقول: لا يوجد مثلث. الحقيقة إيجابية، أما توقع النموذج فسلبي. هذا هو السلبي الكاذب.",
+      "head": "المثلث موجود!",
+      "sub": "الحقيقة إيجابية | التوقع سلبي",
+      "visual": "fnactual"
+    },
+    {
+      "text": "تخيل عشر بطاقات تحتوي فعلًا على مثلثات. تعرّف النموذج على ثماني بطاقات، لكنه فوّت بطاقتين.",
+      "head": "فاتته حالتان",
+      "sub": "8 مكتشفة و2 فائتة",
+      "visual": "fnmissed"
+    },
+    {
+      "text": "في مصفوفة الالتباس يُرمز لهذا النوع من الخطأ بالحرفين إف إن، اختصارًا لفولس نيجاتيف. وهو ليس الإيجابي الكاذب.",
+      "head": "ما معنى FN؟",
+      "sub": "False Negative",
+      "visual": "fnmatrix"
+    },
+    {
+      "text": "كلما زادت الحالات الإيجابية التي يفوّتها النموذج، انخفض مقياس ريكول أو الحساسية. هنا ثمانية من عشرة، أي ثمانون بالمئة.",
+      "head": "السلبي الكاذب يخفض Recall",
+      "sub": "8 / (8 + 2) = 80%",
+      "visual": "fnrecall"
+    },
+    {
+      "text": "الخلاصة: لا تعتمد على غياب التنبيه وحده. قارن توقع النموذج بالحقيقة المعروفة، وراجع الحالات التي لم يكتشفها.",
+      "head": "تحقق من الحالات الفائتة",
+      "sub": "لا تساوِ غياب التنبيه بالغياب",
+      "visual": "fntakeaway"
+    }
+  ],
+  "reviewed_on": "2026-10-22",
+  "qa_source_checked": true,
+  "qa_visual_revision": "six topic-specific triangle and false negative visual scenes; render output to verify"
+}
