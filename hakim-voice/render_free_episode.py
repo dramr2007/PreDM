@@ -306,6 +306,50 @@ def scene(i,seg):
         rect(d,(108,695,612,857),"#20566A",19,C["yellow"],2)
         ar(d,"تحقق من النتيجة والأثر",360,751,30,C["pale"],True)
         ar(d,"وقس معدل الإنذارات الخاطئة",360,819,25,C["yellow"])
+    elif v=="fnquestion":
+        en(d,"FALSE NEGATIVE",360,456,36,C["blue"],True)
+        for j in range(9):
+            x=148+(j%3)*151;y=553+(j//3)*113
+            d.polygon([(x,y+65),(x+40,y),(x+82,y+65)],fill=C["teal"] if j<8 else C["orange"])
+        ar(d,"هل كشف كل المثلثات؟",360,908,35,C["yellow"],True)
+    elif v=="fnactual":
+        rect(d,(99,489,324,815),"#20566A",22,C["teal"],3)
+        rect(d,(393,489,622,815),"#20566A",22,C["orange"],3)
+        en(d,"REALITY",210,550,29,C["teal"],True)
+        en(d,"AI OUTPUT",508,550,27,C["orange"],True)
+        d.polygon([(164,739),(211,635),(258,739)],fill=C["teal"])
+        en(d,"NONE",507,688,35,C["orange"],True)
+        ar(d,"الموجود غير المكتشف",360,902,31,C["yellow"],True)
+    elif v=="fnmissed":
+        en(d,"10 ACTUAL TRIANGLES",360,464,27,C["pale"],True)
+        for j in range(10):
+            x=122+(j%5)*98;y=550+(j//5)*135
+            d.polygon([(x,y+82),(x+42,y),(x+84,y+82)],fill="#278873" if j<8 else "#965051")
+            if j>=8:
+                d.line((x+8,y+9,x+75,y+80),fill=C["yellow"],width=4)
+                d.line((x+74,y+9,x+8,y+80),fill=C["yellow"],width=4)
+        ar(d,"اكتشف ٨ وفاته ٢",360,907,35,C["yellow"],True)
+    elif v=="fnmatrix":
+        en(d,"CONFUSION MATRIX",360,463,28,C["blue"],True)
+        for x,y,code in [(132,530,"TP"),(380,530,"FP"),(132,704,"FN"),(380,704,"TN")]:
+            color="#915052" if code=="FN" else "#20566A"
+            rect(d,(x,y,x+205,y+142),color,19,C["orange"] if code=="FN" else C["teal"],3)
+            en(d,code,x+101,y+70,51,C["yellow"] if code=="FN" else C["pale"],True)
+        ar(d,"FN حالة موجودة لم تُكتشف",360,905,26,C["yellow"],True)
+    elif v=="fnrecall":
+        en(d,"RECALL",360,476,37,C["blue"],True)
+        rect(d,(120,539,600,808),"#20566A",24)
+        en(d,"TP / (TP + FN)",360,615,36,C["pale"],True)
+        d.line((177,677,545,677),fill=C["yellow"],width=5)
+        en(d,"8 / 10 = 80%",360,748,43,C["teal"],True)
+        ar(d,"الفائت يُنقص الاسترجاع",360,896,30,C["yellow"],True)
+    elif v=="fntakeaway":
+        rect(d,(102,498,621,656),"#20566A",20,C["orange"],3)
+        en(d,"NO ALERT",360,554,38,C["orange"],True)
+        ar(d,"ليس دليلًا قاطعًا على الغياب",360,621,27,C["pale"])
+        rect(d,(102,717,621,864),"#20566A",20,C["teal"],3)
+        ar(d,"قارن التوقع بالمرجع",360,767,31,C["pale"],True)
+        ar(d,"وافحص الحالات التي فاتت",360,828,29,C["yellow"],True)
     else:
         for j,(cap,eng) in enumerate([("الجودة","QUALITY"),("الذاكرة","MEMORY"),("السرعة","LATENCY")]):
             y=462+j*152
