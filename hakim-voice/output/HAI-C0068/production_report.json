@@ -1,0 +1,19 @@
+{
+  "id": "HAI-C0068",
+  "duration_s": 81.73,
+  "segment_durations_s": [
+    12.14,
+    13.54,
+    14.23,
+    14.1,
+    11.51,
+    16.21
+  ],
+  "video": "/home/runner/work/PreDM/PreDM/hakim-voice/output/HAI-C0068/HAI-C0068-FREE-MALE.mp4",
+  "bytes": 1644389,
+  "voice": "Piper ar_JO-kareem-medium, atempo=1.13",
+  "caption": "حكيم AI | الحلقة 68 — Calibration (معايرة الاحتمالات)\nالمعايرة الجيدة تعني أنه بين الحالات التي يتوقع النموذج لها احتمالًا قريبًا من 80%، نحو 80% تكون إيجابية فعلًا عبر عدد كافٍ من الأمثلة. هذا لا يعني أن كل حالة منفردة مضمونة. تُراجع المعايرة بمقارنة الاحتمالات المتوقعة بالتكرارات المشاهدة وعلى بيانات مناسبة ومستقلة.\nالمصدر: https://scikit-learn.org/stable/modules/calibration.html\nصوت ورسوم تعليمية مولدة بالذكاء الاصطناعي.\n#حكيم_AI #Calibration #MachineLearning #AI",
+  "references": [
+    "https://scikit-learn.org/stable/modules/calibration.html"
+  ]
+}
