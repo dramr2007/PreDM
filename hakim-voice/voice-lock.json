@@ -1,0 +1,24 @@
+{
+  "project": "Hakim AI",
+  "updated_at": "2026-10-22",
+  "status": "VOICE_LOCKED_NO_FALLBACK",
+  "reference_episode": "HAI-C0040",
+  "reference_title": "Transfer Learning",
+  "reference_url": "https://www.youtube.com/shorts/cGQIb67n58I",
+  "synthesis_provider": "HeyGen",
+  "voice_id": "15ef8a736a734fbcbdb3c80678f631de",
+  "settings": {
+    "speed": 1,
+    "pitch": 0,
+    "volume": 1
+  },
+  "prohibited_fallback_engines": [
+    "Piper",
+    "SILMA"
+  ],
+  "may_publish_only_if_voice_matches_reference": true,
+  "heygen_free_allowance": "0 seconds remaining on 2026-10-22; renews next month according to provider",
+  "quota_policy": "No paid credits, duplicate trials, or quota bypasses; do not retry voice synthesis until available credit is confirmed.",
+  "publishing_policy": "Do not publish future episode without the locked narration and technical QA; do not duplicate previously published videos.",
+  "last_confirmed_completion": "HAI-C0067 on all four networks; HAI-C0068 three of four; YouTube upload limit ERROR"
+}
