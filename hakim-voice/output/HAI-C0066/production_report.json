@@ -1,0 +1,19 @@
+{
+  "id": "HAI-C0066",
+  "duration_s": 68.83,
+  "segment_durations_s": [
+    10.96,
+    12.19,
+    10.38,
+    11.11,
+    12.74,
+    11.45
+  ],
+  "video": "/home/runner/work/PreDM/PreDM/hakim-voice/output/HAI-C0066/HAI-C0066-FREE-MALE.mp4",
+  "bytes": 1401423,
+  "voice": "Piper ar_JO-kareem-medium, atempo=1.13",
+  "caption": "حكيم AI | الحلقة 66 — False Negative (السلبي الكاذب)\nعندما يوجد مثلث فعلًا لكن نموذج التعرّف على الأشكال يقول «لا يوجد مثلث»، فهذه نتيجة سلبية كاذبة FN. في مثال عشر حالات إيجابية حقيقية، إذا اكتشف النموذج 8 وفوّت 2، يصبح Recall = 8/(8+2) = 80%. غياب التنبيه لا يثبت غياب الحالة.\nالمصدر: https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall\nصوت ورسوم تعليمية مولدة بالذكاء الاصطناعي.\n#حكيم_AI #FalseNegative #Recall #MachineLearning",
+  "references": [
+    "https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall"
+  ]
+}
