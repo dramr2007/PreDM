@@ -350,6 +350,49 @@ def scene(i,seg):
         rect(d,(102,717,621,864),"#20566A",20,C["teal"],3)
         ar(d,"قارن التوقع بالمرجع",360,767,31,C["pale"],True)
         ar(d,"وافحص الحالات التي فاتت",360,828,29,C["yellow"],True)
+    elif v=="cmquestion":
+        en(d,"CONFUSION MATRIX",360,448,29,C["blue"],True)
+        for x,y,code in [(136,523,"TP"),(381,523,"FN"),(136,718,"FP"),(381,718,"TN")]:
+            rect(d,(x,y,x+205,y+161),"#26566D",20,C["teal"],3)
+            en(d,code,x+101,y+78,45,C["yellow"],True)
+        ar(d,"أربع خانات للفهم",360,920,32,C["pale"],True)
+    elif v=="cmaxes":
+        en(d,"PREDICTED",360,468,29,C["blue"],True)
+        en(d,"POSITIVE",240,524,25,C["teal"],True)
+        en(d,"NEGATIVE",495,524,23,C["orange"],True)
+        for x,y,code in [(135,560,"TP"),(380,560,"FN"),(135,728,"FP"),(380,728,"TN")]:
+            rect(d,(x,y,x+208,y+137),"#245970",18,C["teal"],2)
+            en(d,code,x+103,y+66,47,C["yellow"],True)
+        ar(d,"أعلى: واقع إيجابي، أسفل: سلبي",360,931,25,C["pale"])
+    elif v=="cmcorrect":
+        en(d,"CORRECT PREDICTIONS",360,454,26,C["teal"],True)
+        for x,y,code in [(132,532,"TP"),(378,532,"FN"),(132,708,"FP"),(378,708,"TN")]:
+            good=code in ("TP","TN")
+            rect(d,(x,y,x+213,y+147),"#267D69" if good else "#24485C",20,C["teal"] if good else "#416375",3)
+            en(d,code,x+105,y+71,49,C["yellow"] if good else C["pale"],True)
+        ar(d,"TP و TN توقعان صحيحان",360,925,31,C["yellow"],True)
+    elif v=="cmerrors":
+        en(d,"MISCLASSIFICATIONS",360,455,29,C["orange"],True)
+        for x,y,code in [(132,532,"TP"),(378,532,"FN"),(132,708,"FP"),(378,708,"TN")]:
+            wrong=code in ("FP","FN")
+            rect(d,(x,y,x+213,y+147),"#8B4650" if wrong else "#24485C",20,C["orange"] if wrong else "#416375",3)
+            en(d,code,x+105,y+71,49,C["yellow"] if wrong else C["pale"],True)
+        ar(d,"FP و FN نوعا الخطأ",360,922,33,C["yellow"],True)
+    elif v=="cmnumbers":
+        en(d,"EXAMPLE: 20 CASES",360,455,29,C["blue"],True)
+        for x,y,code,val in [(132,528,"TP","8"),(378,528,"FN","2"),(132,706,"FP","3"),(378,706,"TN","7")]:
+            rect(d,(x,y,x+213,y+151),"#20566A",19,C["teal"],3)
+            en(d,code,x+105,y+42,24,C["pale"],True)
+            en(d,val,x+105,y+107,53,C["yellow"],True)
+        en(d,"(8 + 7) / 20 = 75%",360,934,26,C["teal"],True)
+    elif v=="cmtakeaway":
+        rect(d,(105,491,614,633),"#20566A",21,C["teal"],3)
+        en(d,"STEP 1",360,543,28,C["yellow"],True)
+        ar(d,"اقرأ المحاور والفئات",360,597,31,C["pale"],True)
+        rect(d,(105,697,614,842),"#20566A",21,C["orange"],3)
+        en(d,"STEP 2",360,748,28,C["yellow"],True)
+        ar(d,"افحص الأخطاء الصحيحة والفائتة",360,803,26,C["pale"],True)
+        ar(d,"لا تحفظ مواضع الخانات فقط",360,921,27,C["yellow"])
     else:
         for j,(cap,eng) in enumerate([("الجودة","QUALITY"),("الذاكرة","MEMORY"),("السرعة","LATENCY")]):
             y=462+j*152
