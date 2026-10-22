@@ -393,6 +393,45 @@ def scene(i,seg):
         en(d,"STEP 2",360,748,28,C["yellow"],True)
         ar(d,"افحص الأخطاء الصحيحة والفائتة",360,803,26,C["pale"],True)
         ar(d,"لا تحفظ مواضع الخانات فقط",360,921,27,C["yellow"])
+    elif v=="calibquestion":
+        en(d,"PROBABILITY",360,472,35,C["blue"],True)
+        en(d,"80%",360,623,111,C["yellow"],True)
+        rect(d,(124,735,595,846),"#215A6A",22,C["teal"],3)
+        ar(d,"هل هذا يعني يقينًا؟",360,792,37,C["pale"],True)
+    elif v=="calibgroups":
+        en(d,"100 SIMILAR PREDICTIONS",360,463,23,C["blue"],True)
+        for j in range(100):
+            x=121+(j%10)*48;y=520+(j//10)*34
+            rect(d,(x,y,x+34,y+24),"#259B83" if j<80 else "#7E5262",5)
+        en(d,"80 ACTUAL POSITIVES",360,904,30,C["yellow"],True)
+    elif v=="calibmatch":
+        en(d,"PREDICTED",360,468,28,C["pale"],True)
+        en(d,"80%",360,553,67,C["teal"],True)
+        d.line((166,625,555,625),fill=C["yellow"],width=6)
+        en(d,"OBSERVED",360,691,28,C["pale"],True)
+        en(d,"80%",360,784,67,C["teal"],True)
+        ar(d,"النسبتان متقاربتان",360,902,30,C["yellow"],True)
+    elif v=="calibplot":
+        en(d,"RELIABILITY DIAGRAM",360,461,24,C["blue"],True)
+        d.line((155,834,155,540),fill=C["pale"],width=5)
+        d.line((155,834,569,834),fill=C["pale"],width=5)
+        d.line((171,819,551,547),fill=C["teal"],width=7)
+        for x,y in [(245,760),(336,693),(429,627),(511,575)]:
+            d.ellipse((x-12,y-12,x+12,y+12),fill=C["yellow"])
+        en(d,"PREDICTED  →",360,889,23,C["yellow"],True)
+    elif v=="calibindividual":
+        rect(d,(121,511,599,681),"#20566A",22,C["orange"],3)
+        en(d,"P = 80%",360,566,55,C["yellow"],True)
+        ar(d,"ليس وعدًا لهذه الحالة",360,642,29,C["pale"],True)
+        rect(d,(121,732,599,867),"#20566A",22,C["teal"],3)
+        ar(d,"التقييم يكون عبر مجموعات",360,803,28,C["pale"],True)
+    elif v=="calibverify":
+        for j,(name,artext) in enumerate([("COMPARE","قارن المتوقع بالفعلي"),("RECHECK","اختبر على بيانات جديدة")]):
+            y=501+j*192
+            rect(d,(119,y,605,y+146),"#20566A",22,C["teal"] if j==0 else C["yellow"],3)
+            en(d,name,360,y+46,32,C["yellow"],True)
+            ar(d,artext,360,y+107,28,C["pale"],True)
+        ar(d,"المعايرة قد تتغير بمرور الوقت",360,921,24,C["yellow"],True)
     else:
         for j,(cap,eng) in enumerate([("الجودة","QUALITY"),("الذاكرة","MEMORY"),("السرعة","LATENCY")]):
             y=462+j*152
