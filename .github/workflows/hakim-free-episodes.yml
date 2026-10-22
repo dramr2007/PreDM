@@ -23,6 +23,18 @@ jobs:
     steps:
       - name: Checkout the experiment branch
         uses: actions/checkout@v4
+      - name: Respect user-approved voice lock (do not render with rejected Piper voice)
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          f=Path("hakim-voice/voice-lock.json")
+          if f.exists():
+              lock=json.loads(f.read_text(encoding="utf-8"))
+              forbidden=lock.get("prohibited_fallback_engines", [])
+              if "Piper" in forbidden or lock.get("status")=="VOICE_LOCKED_NO_FALLBACK":
+                  raise SystemExit("VOICE QA HOLD: Piper explicitly rejected by user; abort before fetching model or generating audio. Use an approved, checked voice workflow instead.")
+          PY
       - name: Python 3.11
         uses: actions/setup-python@v5
         with:
