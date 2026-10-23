@@ -1,0 +1,70 @@
+name: HAKIM AI - Licensed MSA Male 69 Full Production
+on:
+  push:
+    branches: [hakim-ai-free-voice-test]
+    paths: ["hakim-voice/production/habibi-publish-request.md"]
+permissions:
+  contents: write
+concurrency:
+  group: hakim-habibi-full-c0069
+  cancel-in-progress: false
+jobs:
+  produce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+      - name: Prepare CPU dependencies
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install free licensed rendering dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-core libsndfile1
+          python -m pip install --upgrade pip
+          python -m pip install 'torch==2.7.1+cpu' 'torchaudio==2.7.1+cpu' --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install 'habibi-tts==0.1.1' 'pillow>=11' 'soundfile>=0.12' 'cached_path'
+      - name: Render complete educational episode with Specialized MSA
+        run: |
+          python hakim-voice/render_habibi_episode.py hakim-voice/audar-episodes/HAI-C0069.json
+      - name: Verify video format, audio, and six unique scenes
+        run: |
+          ffprobe -v error -show_entries format=duration,size -show_entries stream=codec_type,codec_name,width,height -of json hakim-voice/output/HAI-C0069/HAI-C0069-HABIBI-MSA.mp4
+          python - <<'PY'
+          import json,subprocess
+          from PIL import Image,ImageChops
+          from pathlib import Path
+          d=Path('hakim-voice/output/HAI-C0069')
+          r=json.loads((d/'production_report.json').read_text(encoding='utf-8'))
+          v=d/'HAI-C0069-HABIBI-MSA.mp4'
+          assert v.stat().st_size>500000
+          assert r['status']=='RENDER_COMPLETE_AUTOMATED_QA_ONLY_NOT_PUBLISHED'
+          assert 25<r['duration_s']<120
+          im=[Image.open(d/('scene_%02d.png'%i)).convert('RGB') for i in range(6)]
+          for i in range(5):assert ImageChops.difference(im[i],im[i+1]).getbbox(),'Repeated slide detected'
+          probe=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-of','json',str(v)]))
+          stream=probe['streams']
+          assert any(s.get('codec_type')=='video' and s.get('codec_name')=='h264' and s.get('width')==720 and s.get('height')==1280 for s in stream)
+          assert any(s.get('codec_type')=='audio' and s.get('codec_name')=='aac' for s in stream)
+          print('Technical video QA PASSED; does NOT substitute for human voice/pronunciation assessment')
+          PY
+      - name: Store draft MP4 and report for publication QC
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add hakim-voice/output/HAI-C0069/HAI-C0069-HABIBI-MSA.mp4 hakim-voice/output/HAI-C0069/production_report.json
+          git commit -m 'Render Hakim AI C0069 licensed male MSA 9:16 video for QA' || true
+          git pull --rebase origin hakim-ai-free-voice-test
+          git push origin HEAD:hakim-ai-free-voice-test
+      - name: Preserve QA artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hakim-ai-0069-habibi-qa
+          path: |
+            hakim-voice/output/HAI-C0069/production_report.json
+            hakim-voice/output/HAI-C0069/HAI-C0069-HABIBI-MSA.mp4
+            hakim-voice/output/HAI-C0069/scene_*.png
+          retention-days: 7
