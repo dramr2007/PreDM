@@ -29,9 +29,10 @@ for i,seg in enumerate(e['segments']):
     print(json.dumps(row,ensure_ascii=False),flush=True)
 avg=sum(z['char_similarity'] for z in rows)/len(rows)
 avgwords=sum(z['unique_word_recall'] for z in rows)/len(rows)
-# Arabic ASR has imperfect punctuation and morphology, so use two independent signals.
-# This stringent screen is intended to prevent repeat of known garbled narration.
-passed=avg>=0.64 and avgwords>=0.47 and all(z['char_similarity']>=0.41 for z in rows)
+# Arabic ASR is imperfect, but publication screening must reject scene-level corruption.
+# Require strong aggregate agreement plus no weak scene; human listening remains mandatory.
+passed=(avg>=0.90 and avgwords>=0.70 and
+        all(z['char_similarity']>=0.86 and z['unique_word_recall']>=0.60 for z in rows))
 status='ASR_PASS_PENDING_FINAL_AUDIO_LISTENING_QA' if passed else 'ASR_FAILED_DO_NOT_PUBLISH'
 report={'status':status,'mean_char_similarity':round(avg,3),'mean_unique_word_recall':round(avgwords,3),'scenes':rows,'is_publication_approved':False}
 output.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf8')
