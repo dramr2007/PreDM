@@ -24,6 +24,9 @@ jobs:
           sudo apt-get install -y -qq ffmpeg libsndfile1
           python -m pip install --upgrade pip
           python -m pip install "llama-cpp-python>=0.3" neucodec soundfile torch librosa huggingface_hub numpy
+          # torchtune 0.6 still imports the legacy NF4 module removed by torchao 0.18
+          python -m pip install --no-deps 'torchao==0.17.0'
+          python -c 'from neucodec import NeuCodec; print("NeuCodec import passes")'
           git clone -q --depth 1 https://github.com/AudarAI/Audar-TTS-V1.git /tmp/Audar-TTS-V1
       - name: Synthesize one short male-voice audition, not a public video
         run: |
@@ -38,7 +41,7 @@ jobs:
           python /tmp/Audar-TTS-V1/examples/synthesize_gguf.py \
             'هل تعني فترة الثقة خمسة وتسعين في المئة أن المتوسط الحقيقي داخل هذا النطاق يقينًا؟ لا؛ بل نتحدث عن تكرار طريقة التقدير عبر عينات كثيرة.' \
             --ref /tmp/audar_reference.wav \
-            --ref-text 'لا يمكنني الانتظار لأخبرك لقد أنجزنا المشروع أخيرا بعد كل هذا التعب وصدقني إنه أجمل شعور على الإطلاق' \
+            --ref-text 'لا يمكنني الانتظار لأخبرك — لقد أنجزنا المشروع أخيراً بعد كلّ هذا التعب، وصدّقني، إنه أجمل شعورٌ على الإطلاق!' \
             --out hakim-voice/voice-auditions/output/HAI-C0069_AUDAR_RAW.wav
           ffmpeg -nostdin -y -loglevel error -i hakim-voice/voice-auditions/output/HAI-C0069_AUDAR_RAW.wav \
             -af 'atempo=1.10,loudnorm=I=-16:TP=-1.5:LRA=11' \
