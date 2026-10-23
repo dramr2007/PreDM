@@ -1,0 +1,20 @@
+{
+  "episode": "HAI-C0069",
+  "media": "/home/runner/work/PreDM/PreDM/hakim-voice/output/HAI-C0069/HAI-C0069-HABIBI-MSA.mp4",
+  "bytes": 756522,
+  "duration_s": 36.01,
+  "voice": "Habibi-TTS Specialized MSA Apache-2.0 atempo=1.10",
+  "authored_segments": 6,
+  "status": "RENDER_COMPLETE_AUTOMATED_QA_ONLY_NOT_PUBLISHED",
+  "requires_listening_review": true,
+  "voice_terms": "Only Specialized MSA checkpoint. Reference MSA sample bundled with public repository.",
+  "source": "https://online.stat.psu.edu/stat200/Lesson04",
+  "scene_durations_s": [
+    7.18,
+    5.57,
+    5.99,
+    6.05,
+    5.94,
+    5.28
+  ]
+}
