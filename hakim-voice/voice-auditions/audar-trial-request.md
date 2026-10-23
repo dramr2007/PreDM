@@ -6,3 +6,6 @@ Episode material: HAI-C0069 Confidence Interval, existing reviewed script.
 Audio voice: provided Audar profile demo_male_1, freely distributed synthetic voice, not cloning a real person or commercial HeyGen voice.
 Delivery: fluent MSA, 1.10x with pitch preserved, -16 LUFS, human audio review required before publication. This does not supersede HAI-C0040 as reference until approved.
 Citations: https://huggingface.co/audarai/Audar-TTS-V1-Flash and https://github.com/AudarAI/Audar-TTS-V1
+
+## Retry 2026-10-23
+The first isolated Audar voice audition failed in dependency import, not synthesis quality. Retry once after pinning torchao 0.17 and NeuCodec preflight. Keep this a private-review sample; no public posting of unverified audio.
