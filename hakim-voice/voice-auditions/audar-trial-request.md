@@ -9,3 +9,6 @@ Citations: https://huggingface.co/audarai/Audar-TTS-V1-Flash and https://github.
 
 ## Retry 2026-10-23
 The first isolated Audar voice audition failed in dependency import, not synthesis quality. Retry once after pinning torchao 0.17 and NeuCodec preflight. Keep this a private-review sample; no public posting of unverified audio.
+
+## Access-restricted codec remediation — 2026-10-23
+Second run exposed a gated neuphonic/neucodec checkpoint. This attempt switches to the explicitly public Apache-2.0 DistillNeuCodec compatible architecture from neuphonic/distill-neucodec; no gated repo or unauthorized token access. Audio audition only, no public post until QA.
