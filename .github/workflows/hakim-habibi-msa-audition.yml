@@ -1,0 +1,88 @@
+name: HAKIM AI - Open MSA Male Voice Audition
+on:
+  push:
+    branches: [hakim-ai-free-voice-test]
+    paths: ["hakim-voice/voice-auditions/habibi-msa-request.md"]
+permissions:
+  contents: write
+concurrency:
+  group: hakim-open-msa-audition
+  cancel-in-progress: false
+jobs:
+  test-licensed-msa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare free local TTS runner
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg libsndfile1
+          python -m pip install --upgrade pip
+          python -m pip install 'torch==2.7.1+cpu' 'torchaudio==2.7.1+cpu' --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install 'habibi-tts==0.1.1' 'soundfile>=0.12' 'librosa>=0.10'
+          python -c 'import torch,habibi_tts; print("torch",torch.__version__,"TTS import OK")'
+      - name: Check permitted MSA reference voice
+        run: |
+          mkdir -p hakim-voice/voice-auditions/output
+          curl -fLSs --retry 3 https://raw.githubusercontent.com/SWivid/Habibi-TTS/main/src/habibi_tts/assets/MSA.mp3 -o /tmp/HABIBI_MSA_REFERENCE.mp3
+          ffmpeg -hide_banner -loglevel error -y -i /tmp/HABIBI_MSA_REFERENCE.mp3 -ac 1 -ar 22050 /tmp/HABIBI_MSA_REFERENCE.wav
+          python - <<'PY'
+          import librosa,numpy as np
+          x,sr=librosa.load('/tmp/HABIBI_MSA_REFERENCE.wav',sr=22050)
+          f0=librosa.yin(x,fmin=70,fmax=350,sr=sr)
+          voiced=f0[(f0>70)&(f0<350)]
+          med=float(np.median(voiced)) if len(voiced) else 0
+          print("MSA reference F0:",round(med,1),"Hz")
+          # Pitch is one indicator, not proof of gender or good pronunciation.
+          if len(x)/sr < 3 or med>225:
+              raise SystemExit("Reference pitch unsuitable for user's deep male voice requirement")
+          PY
+      - name: Synthesize single short MSA voice check
+        run: |
+          habibi-tts_infer-cli --model Specialized --dialect MSA \
+            --ref_audio /tmp/HABIBI_MSA_REFERENCE.wav \
+            --ref_text 'كان اللعيب حاضرًا في العديد من الأنشطة والفعاليات المرتبطة بكأس العالم، مما سمح للجماهير بالتفاعل معه والتقاط الصور التذكارية.' \
+            --gen_text 'هل تعني فترة الثقة خمسة وتسعين بالمئة أن المتوسط الحقيقي داخل النطاق بالتأكيد؟ لا، بل يجب أن نفهم كيف تُبنى هذه الفترات عند تكرار العينات.' \
+            --output_dir hakim-voice/voice-auditions/output \
+            --output_file HAI-C0069_HABIBI_MSA_RAW.wav \
+            --nfe_step 16 --speed 1.04 --device cpu
+          ffmpeg -hide_banner -loglevel error -y -i hakim-voice/voice-auditions/output/HAI-C0069_HABIBI_MSA_RAW.wav \
+            -af 'atempo=1.10,loudnorm=I=-16:TP=-1.5:LRA=11' -ar 24000 -ac 1 hakim-voice/voice-auditions/output/HAI-C0069_HABIBI_MSA_CLEAR_FAST.wav
+      - name: Audio technical QA - no public post
+        run: |
+          python - <<'PY'
+          import numpy as np,soundfile as sf,json
+          p='hakim-voice/voice-auditions/output/HAI-C0069_HABIBI_MSA_CLEAR_FAST.wav'
+          a,sr=sf.read(p)
+          duration=len(a)/sr
+          peak=float(np.max(np.abs(a))) if len(a) else 0
+          rms=float(np.sqrt(np.mean(a*a))) if len(a) else 0
+          silence=float(np.mean(abs(a)<.02)) if len(a) else 1
+          ok=3<duration<40 and .025<peak<1 and rms>.004 and silence<.78
+          o={'episode':'HAI-C0069','model':'Habibi-TTS Specialized MSA, Apache-2.0',
+             'profile':'Bundled MSA reference; synthesized Arabic male audition',
+             'status':'TECHNICAL_PASS_REQUIRES_LISTENING_REVIEW' if ok else 'FAILED_QA',
+             'duration_s':round(duration,2),'peak':round(peak,4),'rms':round(rms,4),'low_level_fraction':round(silence,3),
+             'audio_speed':'1.04 synthesis and 1.10 atempo','published':False}
+          with open('hakim-voice/voice-auditions/output/HAI-C0069_HABIBI_MSA_QA.json','w',encoding='utf8') as f: json.dump(o,f,ensure_ascii=False,indent=2)
+          print(json.dumps(o,ensure_ascii=False))
+          assert ok,'Technical QA did not pass'
+          PY
+      - name: Commit review audio and technical QA only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add hakim-voice/voice-auditions/output/HAI-C0069_HABIBI_MSA_CLEAR_FAST.wav hakim-voice/voice-auditions/output/HAI-C0069_HABIBI_MSA_QA.json
+          git commit -m 'Render licensed Habibi MSA synthetic male voice audition (unpublished)' || true
+          git push origin HEAD:hakim-ai-free-voice-test
+      - name: Keep audition artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hakim-habibi-msa-audition
+          path: hakim-voice/voice-auditions/output/
+          retention-days: 7
