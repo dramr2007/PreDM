@@ -38,6 +38,8 @@ jobs:
           shutil.copy2(path,'/tmp/audar_reference_full.wav')
           PY
           ffmpeg -nostdin -y -loglevel error -i /tmp/audar_reference_full.wav -ar 16000 -ac 1 /tmp/audar_reference.wav
+          # Use an explicitly public Apache-2.0 compatible NeuCodec variant; original weights require gated user consent.
+          sed -i 's/from neucodec import NeuCodec/from neucodec import DistillNeuCodec as NeuCodec/; s/"neuphonic\/neucodec"/"neuphonic\/distill-neucodec"/' /tmp/Audar-TTS-V1/examples/synthesize_gguf.py
           python /tmp/Audar-TTS-V1/examples/synthesize_gguf.py \
             'هل تعني فترة الثقة خمسة وتسعين في المئة أن المتوسط الحقيقي داخل هذا النطاق يقينًا؟ لا؛ بل نتحدث عن تكرار طريقة التقدير عبر عينات كثيرة.' \
             --ref /tmp/audar_reference.wav \
