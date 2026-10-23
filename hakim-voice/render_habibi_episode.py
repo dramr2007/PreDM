@@ -112,10 +112,10 @@ refaudio,reftext=preprocess_ref_audio_text(refaudio,reftext)
 wavefiles=[];durations=[]
 for i,seg in enumerate(E['segments']):
     # One model load; six independent narrations with consistent voice & volume
-    audio,sr,_=infer_process(refaudio,reftext,seg['text'],model,vocoder,nfe_step=16,speed=1.06,device='cpu',dialect_id=None)
+    audio,sr,_=infer_process(refaudio,reftext,seg['text'],model,vocoder,nfe_step=24,speed=1.00,device='cpu',dialect_id=None)
     raw=OUT/('audio_%02d_raw.wav'%i);wav=OUT/('audio_%02d.wav'%i)
     sf.write(raw,audio,sr)
-    subprocess.run([FF,'-y','-loglevel','error','-i',str(raw),'-af','atempo=1.10,loudnorm=I=-16:TP=-1.5:LRA=11','-ar','24000','-ac','1',str(wav)],check=True)
+    subprocess.run([FF,'-y','-loglevel','error','-i',str(raw),'-af','loudnorm=I=-16:TP=-1.5:LRA=11','-ar','24000','-ac','1',str(wav)],check=True)
     with wave.open(str(wav),'rb') as fp: duration=fp.getnframes()/fp.getframerate()
     if not 1<duration<28:raise RuntimeError('Suspicious scene voice duration '+str(i)+': '+str(duration))
     durations.append(duration);wavefiles.append(wav);main_scene(i,seg)
@@ -129,8 +129,8 @@ with wave.open(str(full),'rb') as fp: duration=fp.getnframes()/fp.getframerate()
 if not 22<duration<120:raise RuntimeError('Invalid total duration: '+str(duration))
 video=OUT/(E['id']+'-HABIBI-MSA.mp4')
 subprocess.run([FF,'-y','-loglevel','error','-safe','0','-f','concat','-i',str(ffV),'-i',str(full),'-vf','fps=30,format=yuv420p','-c:v','libx264','-crf','22','-preset','fast','-c:a','aac','-b:a','128k','-movflags','+faststart','-t',str(duration),'-shortest',str(video)],check=True)
-report={'episode':E['id'],'media':str(video),'bytes':video.stat().st_size,'duration_s':round(duration,2),'voice':'Habibi-TTS Specialized MSA Apache-2.0 atempo=1.10',
-'authored_segments':6,'status':'RENDER_COMPLETE_AUTOMATED_QA_ONLY_NOT_PUBLISHED','requires_listening_review':True,
+report={'episode':E['id'],'media':str(video),'bytes':video.stat().st_size,'duration_s':round(duration,2),'voice':'Habibi-TTS Specialized MSA Apache-2.0 natural speed 1.00, no atempo, 24 denoising steps',
+'authored_segments':6,'status':'RENDER_COMPLETE_PENDING_ARABIC_ASR_QA_NOT_PUBLISHED','requires_listening_review':True,
 'voice_terms':'Only Specialized MSA checkpoint. Reference MSA sample bundled with public repository.',
 'source':E.get('source'), 'scene_durations_s':[round(x,2) for x in durations]}
 (OUT/'production_report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf8')
