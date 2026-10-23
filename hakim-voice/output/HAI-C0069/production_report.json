@@ -1,45 +1,25 @@
 {
   "episode": "HAI-C0069",
-  "media": "hakim-voice/output/HAI-C0069/HAI-C0069-HABIBI-MSA.mp4",
-  "bytes": 756522,
-  "duration_s": 36.0,
-  "video_codec": "h264",
-  "audio_codec": "aac",
-  "dimensions": "720x1280",
-  "fps": 30,
-  "voice": "Habibi-TTS Specialized MSA Apache-2.0, generated speed 1.06 then atempo 1.10",
+  "media": "/home/runner/work/PreDM/PreDM/hakim-voice/output/HAI-C0069/HAI-C0069-HABIBI-MSA.mp4",
+  "bytes": 832130,
+  "duration_s": 39.74,
+  "voice": "Habibi-TTS Specialized MSA Apache-2.0 natural speed 1.00, no atempo, 24 denoising steps",
   "authored_segments": 6,
-  "status": "BLOCKED_FAILED_PRONUNCIATION_AND_VISUAL_QA_NOT_PUBLISHED",
-  "published": false,
+  "status": "ASR_PASS_PENDING_FINAL_AUDIO_LISTENING_QA",
   "requires_listening_review": true,
-  "automated_decode_passed": true,
-  "automated_signal_notes": {
-    "mean_volume_db": -15.6,
-    "max_volume_db": -6.2,
-    "full_decode": "passed"
-  },
-  "visual_findings": [
-    "Scene 1 subtitle rendered as square glyphs because Latin text used an Arabic-only font.",
-    "Scene 1 mixed-direction title rendered a square before 95.",
-    "A local non-published repair candidate corrected those two text bands without changing audio."
-  ],
-  "speech_findings": {
-    "method": "faster-whisper base int8 automated Arabic transcription; not equivalent to human listening",
-    "language": "ar",
-    "language_probability": 1.0,
-    "result": "failed intelligibility/pronunciation gate",
-    "observed_examples": [
-      "Expected خمسة وتسعين بالمئة was transcribed inconsistently as خمس المئة / خمسة وتسعيني بالمئة.",
-      "Expected المتوسط was repeatedly transcribed incorrectly.",
-      "Several words around افتراضات الطريقة and تغطية الطريقة were merged or corrupted."
-    ]
-  },
-  "repair_required": [
-    "Do not publish or schedule this MP4.",
-    "Correct RTL/Latin font routing and remove mixed percent-direction rendering.",
-    "Regenerate narration more slowly with shorter, pronunciation-safe Arabic segments and no extra atempo until Arabic ASR and listening review pass.",
-    "Preserve the successful H264/AAC 9:16 scene design and exact footer."
-  ],
+  "voice_terms": "Only Specialized MSA checkpoint. Reference MSA sample bundled with public repository.",
   "source": "https://online.stat.psu.edu/stat200/Lesson04",
-  "scene_durations_s": [7.18, 5.57, 5.99, 6.05, 5.94, 5.28]
+  "scene_durations_s": [
+    4.83,
+    5.81,
+    8.7,
+    6.71,
+    7.13,
+    6.56
+  ],
+  "published": false,
+  "arabic_asr_gate": {
+    "mean_char_similarity": 0.911,
+    "mean_word_recall": 0.648
+  }
 }
