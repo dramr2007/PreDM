@@ -7,78 +7,103 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: hakim-audar-audition-only
+  group: hakim-free-male-audition-only
   cancel-in-progress: false
 jobs:
   audition:
     runs-on: ubuntu-latest
-    timeout-minutes: 28
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install free open Arabic-first speech model runner
+      - name: Install public Apache-2.0 MSA speech model runner
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg libsndfile1
           python -m pip install --upgrade pip
-          python -m pip install "llama-cpp-python>=0.3" neucodec soundfile torch librosa huggingface_hub numpy
-          # torchtune 0.6 still imports the legacy NF4 module removed by torchao 0.18
-          python -m pip install --no-deps 'torchao==0.17.0'
-          python -c 'from neucodec import NeuCodec; print("NeuCodec import passes")'
-          git clone -q --depth 1 https://github.com/AudarAI/Audar-TTS-V1.git /tmp/Audar-TTS-V1
-      - name: Synthesize one short male-voice audition, not a public video
+          python -m pip install "habibi-tts==0.1.1" "faster-whisper>=1.1" soundfile numpy huggingface_hub
+          habibi-tts_infer-cli --help >/dev/null
+      - name: Synthesize one private Habibi MSA male audition
         run: |
           mkdir -p hakim-voice/voice-auditions/output
           python - <<'PY'
           from huggingface_hub import hf_hub_download
           import shutil
           path=hf_hub_download('audarai/Audar-TTS-V1-Flash','samples/demo_male_1_ar.wav')
-          shutil.copy2(path,'/tmp/audar_reference_full.wav')
+          shutil.copy2(path,'/tmp/synthetic_male_reference_full.wav')
           PY
-          ffmpeg -nostdin -y -loglevel error -i /tmp/audar_reference_full.wav -ar 16000 -ac 1 /tmp/audar_reference.wav
-          # Use an explicitly public Apache-2.0 compatible NeuCodec variant; original weights require gated user consent.
-          sed -i 's/from neucodec import NeuCodec/from neucodec import DistillNeuCodec as NeuCodec/; s/"neuphonic\/neucodec"/"neuphonic\/distill-neucodec"/' /tmp/Audar-TTS-V1/examples/synthesize_gguf.py
-          python /tmp/Audar-TTS-V1/examples/synthesize_gguf.py \
-            'هل تعني فترة الثقة خمسة وتسعين في المئة أن المتوسط الحقيقي داخل هذا النطاق يقينًا؟ لا؛ بل نتحدث عن تكرار طريقة التقدير عبر عينات كثيرة.' \
-            --ref /tmp/audar_reference.wav \
-            --ref-text 'لا يمكنني الانتظار لأخبرك — لقد أنجزنا المشروع أخيراً بعد كلّ هذا التعب، وصدّقني، إنه أجمل شعورٌ على الإطلاق!' \
-            --out hakim-voice/voice-auditions/output/HAI-C0069_AUDAR_RAW.wav
-          ffmpeg -nostdin -y -loglevel error -i hakim-voice/voice-auditions/output/HAI-C0069_AUDAR_RAW.wav \
+          ffmpeg -nostdin -y -loglevel error -i /tmp/synthetic_male_reference_full.wav -ar 24000 -ac 1 /tmp/synthetic_male_reference.wav
+          habibi-tts_infer-cli \
+            --model Specialized \
+            --dialect MSA \
+            --ref_audio /tmp/synthetic_male_reference.wav \
+            --ref_text 'لا يمكنني الانتظار لأخبرك — لقد أنجزنا المشروع أخيراً بعد كلّ هذا التعب، وصدّقني، إنه أجمل شعورٌ على الإطلاق!' \
+            --gen_text 'هل تعني فترة الثقة خمسة وتسعين في المئة أن المتوسط الحقيقي داخل هذا النطاق يقينًا؟ لا؛ بل نتحدث عن تكرار طريقة التقدير عبر عينات كثيرة.' \
+            --output_dir hakim-voice/voice-auditions/output \
+            --output_file HAI-C0069_HABIBI_MSA_RAW.wav \
+            --nfe_step 16 \
+            --speed 1.0 \
+            --device cpu \
+            --remove_silence
+          ffmpeg -nostdin -y -loglevel error -i hakim-voice/voice-auditions/output/HAI-C0069_HABIBI_MSA_RAW.wav \
             -af 'atempo=1.10,loudnorm=I=-16:TP=-1.5:LRA=11' \
-            -ar 24000 -ac 1 hakim-voice/voice-auditions/output/HAI-C0069_AUDAR_CLEAR_FAST.wav
-      - name: Machine QA, not equivalent to listening
+            -ar 24000 -ac 1 hakim-voice/voice-auditions/output/HAI-C0069_HABIBI_MSA_CLEAR_FAST.wav
+      - name: Machine QA with Arabic transcription
         run: |
           python - <<'PY'
-          import json,wave
+          import json, re, wave
           import numpy as np
-          p='hakim-voice/voice-auditions/output/HAI-C0069_AUDAR_CLEAR_FAST.wav'
+          from faster_whisper import WhisperModel
+          p='hakim-voice/voice-auditions/output/HAI-C0069_HABIBI_MSA_CLEAR_FAST.wav'
           with wave.open(p,'rb') as f:
               duration=f.getnframes()/f.getframerate()
               samples=np.frombuffer(f.readframes(f.getnframes()),dtype='<i2')
           peak=float(np.abs(samples.astype('float32')).max()/32768) if samples.size else 0
           silence=float((np.abs(samples)<655).mean()) if samples.size else 1
-          report={'status':'TECHNICALLY_READY_FOR_HUMAN_VOICE_REVIEW' if 3<duration<40 and 0.02<peak<1 and silence<0.80 else 'FAILED_QA',
-            'audition_only':True,'public_video_posted':False,'model':'Audar-TTS V1 Flash Q4_K_M',
-            'voice_profile':'demo_male_1; synthetic licensed voice','duration_s':round(duration,2),
-            'peak':round(peak,4),'fraction_low_level':round(silence,3),'speed':1.10,
-            'require_voice_quality_review_before_publication':True}
-          open('hakim-voice/voice-auditions/output/QA.json','w',encoding='utf8').write(json.dumps(report,ensure_ascii=False,indent=2))
+          model=WhisperModel('tiny',device='cpu',compute_type='int8')
+          segments,info=model.transcribe(p,language='ar',beam_size=3,vad_filter=True)
+          transcript=' '.join(s.text.strip() for s in segments).strip()
+          chars=[c for c in transcript if not c.isspace()]
+          arabic=sum(bool(re.match(r'[\u0600-\u06FF]',c)) for c in chars)
+          arabic_ratio=arabic/max(1,len(chars))
+          signal_ok=3<duration<40 and 0.02<peak<1 and silence<0.80
+          language_ok=len(transcript)>=20 and arabic_ratio>0.55
+          report={
+            'status':'TECHNICALLY_READY_FOR_HUMAN_VOICE_REVIEW' if signal_ok and language_ok else 'FAILED_QA',
+            'audition_only':True,
+            'public_video_posted':False,
+            'model':'SWivid/Habibi-TTS Specialized/MSA',
+            'model_license':'Apache-2.0',
+            'code_license':'MIT',
+            'voice_reference':'Audar-TTS V1 Flash demo_male_1 synthetic sample; no real-person cloning',
+            'duration_s':round(duration,2),
+            'peak':round(peak,4),
+            'fraction_low_level':round(silence,3),
+            'post_speed':1.10,
+            'asr_model':'faster-whisper tiny int8',
+            'detected_language':info.language,
+            'detected_language_probability':round(info.language_probability,3),
+            'arabic_character_ratio':round(arabic_ratio,3),
+            'asr_transcript':transcript,
+            'require_human_voice_quality_review_before_publication':True
+          }
+          open('hakim-voice/voice-auditions/output/QA_HABIBI_MSA.json','w',encoding='utf8').write(json.dumps(report,ensure_ascii=False,indent=2))
           print(json.dumps(report,ensure_ascii=False,indent=2))
-          assert report['status']=='TECHNICALLY_READY_FOR_HUMAN_VOICE_REVIEW', 'Signal QA failed'
+          assert report['status']=='TECHNICALLY_READY_FOR_HUMAN_VOICE_REVIEW', 'Signal or Arabic ASR QA failed'
           PY
       - name: Commit preview only on isolated experiment branch
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add hakim-voice/voice-auditions/output/HAI-C0069_AUDAR_CLEAR_FAST.wav hakim-voice/voice-auditions/output/QA.json
-          git commit -m 'Trial new free Arabic male voice for Hakim AI; not published' || true
+          git add hakim-voice/voice-auditions/output/HAI-C0069_HABIBI_MSA_CLEAR_FAST.wav hakim-voice/voice-auditions/output/QA_HABIBI_MSA.json
+          git commit -m 'Trial Habibi MSA synthetic male voice for Hakim AI; not published' || true
           git push origin HEAD:hakim-ai-free-voice-test
       - name: Retain review evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: hakim-audar-male-audition-only
+          name: hakim-habibi-msa-male-audition-only
           path: hakim-voice/voice-auditions/output/
           retention-days: 7
