@@ -1,0 +1,82 @@
+{
+  "id": "HAI-M0007",
+  "duration_seconds": 45.97,
+  "scenes_seconds": [
+    6.438,
+    6.99,
+    7.734,
+    6.774,
+    10.134,
+    7.902
+  ],
+  "speaker": "Microsoft ar-SA-ZariyahNeural",
+  "voice_reference": "female voice selected by user 27 October 2026",
+  "audio_peak": 0.79433,
+  "full_decode": "passed",
+  "narration": [
+    "لو راجع الطبيب إجابة الذكاء الاصطناعي، هل هذا يضمن أنها صحيحة؟",
+    "قد يقترح المساعد إجابة اعتمادًا على معلومات ناقصة، وقد يقع في الخطأ.",
+    "المراجعة الحقيقية تحتاج وقتًا ومعلومات، وقدرة على رفض الاقتراح أو تعديله.",
+    "ومع ذلك قد يفوّت الإنسان خطأً، أو يثق بالآلة أكثر من اللازم.",
+    "في تجربة عشوائية في كينيا، لم ينخفض فشل العلاج خلال أربعة عشر يومًا بشكل معنوي عند استخدام المساعد.",
+    "لذلك نقيس أداء النظام والإنسان معًا. حكيم أي آي: الدليل أولًا."
+  ],
+  "source": [
+    "https://www.nature.com/articles/s41591-026-04503-6",
+    "https://www.who.int/publications/i/item/9789240029200"
+  ],
+  "human_listening": "not_performed",
+  "visual_review": "pending",
+  "automatic_asr_model": "Whisper small Arabic CPU int8",
+  "scene_checks": [
+    {
+      "scene": 1,
+      "transcript": "لو رجع طبيب إجابة الذكاء الاستناعي هل هذا يضمن أنها صحيحة؟",
+      "char_similarity": 0.932,
+      "fuzzy_word_recall": 0.909,
+      "critical_missing": [],
+      "pass": true
+    },
+    {
+      "scene": 2,
+      "transcript": "قد يقترف المساعد إجابة اعتماد على معلومات الناقصة، وقد يقع في الخطأ.",
+      "char_similarity": 0.962,
+      "fuzzy_word_recall": 1.0,
+      "critical_missing": [],
+      "pass": true
+    },
+    {
+      "scene": 3,
+      "transcript": "المرجعة الحقيقية تحتاج وقتا ومعلومات وقدرة على رفض الاقتراح أو تعديله",
+      "char_similarity": 0.986,
+      "fuzzy_word_recall": 1.0,
+      "critical_missing": [],
+      "pass": true
+    },
+    {
+      "scene": 4,
+      "transcript": "ومع ذلك قد يفوت الإنسان خطأا أو يثق بالآلة أكثر من اللازم",
+      "char_similarity": 0.982,
+      "fuzzy_word_recall": 1.0,
+      "critical_missing": [],
+      "pass": true
+    },
+    {
+      "scene": 5,
+      "transcript": "في تجربة عشوائية في كينيا لم ينخفض فشل العلاج خلال 14 يوم بشكل معنوي عند استخدام المساعد",
+      "char_similarity": 0.93,
+      "fuzzy_word_recall": 0.889,
+      "critical_missing": [],
+      "pass": true
+    },
+    {
+      "scene": 6,
+      "transcript": "لذلك نقيص أداء النظام والإنسان معا حكيم أي أي الدليل أولا",
+      "char_similarity": 0.966,
+      "fuzzy_word_recall": 0.909,
+      "critical_missing": [],
+      "pass": true
+    }
+  ],
+  "automated_audio_status": "PASS"
+}
