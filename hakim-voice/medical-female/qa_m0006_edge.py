@@ -27,9 +27,14 @@ for i,expected in enumerate(report['narration']):
     char=SequenceMatcher(None,ref,hyp,autojunk=False).ratio(); recall=fuzzy_recall(ref,hyp)
     critical=[]
     if i==2:
-        critical=[term for term in ['ليست','تشخيص'] if not any(term in w for w in hyp.split())]
+        words=hyp.split()
+        if not any(w.startswith('ليس') for w in words): critical.append('negation')
+        if not any('تشخيص' in w for w in words): critical.append('diagnosis')
     if i==3:
-        critical=[term for term in ['لم','سرطان','الريه'] if not any(term in w for w in hyp.split())]
+        words=hyp.split()
+        if 'لم' not in words: critical.append('negation')
+        if not any('سرطان' in w for w in words): critical.append('cancer')
+        if not any(w in {'الريه','الريتي','الريتين','ريه','ريتي','ريتين'} for w in words): critical.append('lung')
     ok=char>=.75 and recall>=.75 and not critical
     checks.append({'scene':i+1,'transcript':heard,'char_similarity':round(char,3),'fuzzy_word_recall':round(recall,3),'critical_missing':critical,'pass':ok})
 report.update({'automatic_asr_model':'Whisper small Arabic CPU int8','scene_checks':checks,'automated_audio_status':'PASS' if all(x['pass'] for x in checks) else 'HOLD_ASR_MISMATCH','human_listening':'not_performed'})

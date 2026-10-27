@@ -53,3 +53,5 @@ jobs:
             hakim-voice/medical-female/out_edge/contact.png
           if-no-files-found: warn
           retention-days: 14
+
+# Recheck clinically equivalent Arabic ASR spellings, keeping negation mandatory.
