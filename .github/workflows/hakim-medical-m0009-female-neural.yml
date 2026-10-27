@@ -57,3 +57,5 @@ jobs:
 # Recheck clinically equivalent Arabic ASR spellings, keeping negation mandatory.
 
 # Episode 9 uses a fictional exercise and scene-specific visuals.
+
+# Re-render to remove an unsupported arrow glyph in Arabic caption.
