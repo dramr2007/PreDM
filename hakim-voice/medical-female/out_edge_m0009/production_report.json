@@ -1,0 +1,82 @@
+{
+  "id": "HAI-M0009",
+  "duration_seconds": 53.94,
+  "scenes_seconds": [
+    6.054,
+    7.71,
+    7.902,
+    10.806,
+    8.838,
+    12.63
+  ],
+  "speaker": "Microsoft ar-SA-ZariyahNeural",
+  "voice_reference": "female voice selected by user 27 October 2026",
+  "audio_peak": 0.79433,
+  "full_decode": "passed",
+  "narration": [
+    "هل تقدر تصمم ذكاء طبي على ورقة؟ جرب معي!",
+    "اكتب مهمة واحدة: ترتيب صور أشعة افتراضية لتحديد ما يحتاج مراجعة أسرع.",
+    "حدد المدخل: صورة خيالية، والمخرج: درجة اشتباه، لا تشخيص نهائي.",
+    "ارسم ثلاث حالات تخيلية: واضحة، وناقصة، وملتبسة. متى تطلب صورة أخرى أو مراجعة بشرية؟",
+    "قبل الاستخدام الحقيقي، نحتاج اختبارًا مستقلًا، ومرجعًا مناسبًا، وبيانات تمثل المرضى.",
+    "هل تنجح الورشة وحدها في إثبات أمان المنتج؟ لا. إنها خطة أولية فقط. حكيم أي آي: الدليل أولًا."
+  ],
+  "source": [
+    "https://www.fda.gov/media/153486/download",
+    "https://www.nature.com/articles/s41591-022-01772-9"
+  ],
+  "human_listening": "not_performed",
+  "visual_review": "pending",
+  "automatic_asr_model": "Whisper small Arabic CPU int8",
+  "scene_checks": [
+    {
+      "scene": 1,
+      "transcript": "هل تقدر تصمم ذكاء طبيّن على ورقه؟ جرب معي",
+      "char_similarity": 0.987,
+      "fuzzy_word_recall": 1.0,
+      "critical_missing": [],
+      "pass": true
+    },
+    {
+      "scene": 2,
+      "transcript": "اكتب مهمة واحدة، ترتيب صور أشعة نفتراضية لتحديد ما يحتاج مراجعة أسرع.",
+      "char_similarity": 0.985,
+      "fuzzy_word_recall": 1.0,
+      "critical_missing": [],
+      "pass": true
+    },
+    {
+      "scene": 3,
+      "transcript": "حدد المدخل صورة خيالية والمخرج درجة اشتباه لا تشخيص النهائي",
+      "char_similarity": 0.95,
+      "fuzzy_word_recall": 1.0,
+      "critical_missing": [],
+      "pass": true
+    },
+    {
+      "scene": 4,
+      "transcript": "أرسم ثلاث حالات تخيلية واضحة ونقصة وملتبسة. مت تطلب صورة أخرى أو مراجعة بشرية.",
+      "char_similarity": 0.969,
+      "fuzzy_word_recall": 1.0,
+      "critical_missing": [],
+      "pass": true
+    },
+    {
+      "scene": 5,
+      "transcript": "قبل استخدام الحقيقي نحتاج اختباراً مستقلاً ومرجعاً مناسباً وبيانات تمثل المرضى",
+      "char_similarity": 0.967,
+      "fuzzy_word_recall": 1.0,
+      "critical_missing": [],
+      "pass": true
+    },
+    {
+      "scene": 6,
+      "transcript": "هل ثنجح الورشة وحدها في إثبات أمان المنتج؟ لا إنها خطة أولية فقط حكيم أي أي الدليل أولا",
+      "char_similarity": 0.972,
+      "fuzzy_word_recall": 0.944,
+      "critical_missing": [],
+      "pass": true
+    }
+  ],
+  "automated_audio_status": "PASS"
+}
