@@ -1,0 +1,82 @@
+{
+  "id": "HAI-M0006",
+  "duration_seconds": 51.08,
+  "scenes_seconds": [
+    5.67,
+    10.662,
+    6.99,
+    10.926,
+    9.582,
+    7.254
+  ],
+  "speaker": "Microsoft ar-SA-ZariyahNeural",
+  "voice_reference": "female voice selected by user 27 October 2026",
+  "audio_peak": 0.79433,
+  "full_decode": "passed",
+  "narration": [
+    "هل يمكن للذكاء الاصطناعي أن يوفر دقيقة مهمة للمريض؟",
+    "تخيل صور أشعة كثيرة تنتظر المراجعة. قد يرتب البرنامج الصور، لتصل الحالات المقلقة إلى الطبيب أولًا.",
+    "لكن درجة الاشتباه ليست تشخيصًا، وقد يفوت البرنامج حالات حقيقية.",
+    "في دراسة بريطانية على صور طلبتها الرعاية الأولية، لم ينخفض زمن التصوير المقطعي أو تشخيص سرطان الرئة بشكل معنوي.",
+    "لذلك لا نكتفي بسرعة الشاشة. نسأل: هل تحسن مسار المريض؟ وكم حالة فاتت؟",
+    "حكيم أي آي: الفائدة الحقيقية تحتاج دليلًا، وليست وعدًا مسبقًا."
+  ],
+  "source": [
+    "https://www.nature.com/articles/s41591-026-04253-5",
+    "https://www.who.int/publications/i/item/9789240029200"
+  ],
+  "human_listening": "not_performed",
+  "visual_review": "pending",
+  "automatic_asr_model": "Whisper small Arabic CPU int8",
+  "scene_checks": [
+    {
+      "scene": 1,
+      "transcript": "هل يمكن للذكاء الاستناعي أن يوفر دقيقة مهمة للمريض؟",
+      "char_similarity": 0.96,
+      "fuzzy_word_recall": 0.889,
+      "critical_missing": [],
+      "pass": true
+    },
+    {
+      "scene": 2,
+      "transcript": "تخيل صور أشعة كثيرة تنتظر المراجعة قد يرتب البرنامج الصور لتصل الحلات المقلقة إلى الطبيب أولا.",
+      "char_similarity": 0.984,
+      "fuzzy_word_recall": 1.0,
+      "critical_missing": [],
+      "pass": true
+    },
+    {
+      "scene": 3,
+      "transcript": "لكن درجة الاشتباه ليس التشخيصم، وقد يفوت البرنامج حالات حقيقية.",
+      "char_similarity": 0.959,
+      "fuzzy_word_recall": 0.9,
+      "critical_missing": [],
+      "pass": true
+    },
+    {
+      "scene": 4,
+      "transcript": "في دراسة بريطانية على صور انطلبتها الرعاية الأولية لم ينخفت زمن التصوير المقطعي أو تشخص سرطان الرئتي بشكل معنوية",
+      "char_similarity": 0.955,
+      "fuzzy_word_recall": 1.0,
+      "critical_missing": [],
+      "pass": true
+    },
+    {
+      "scene": 5,
+      "transcript": "لذلك لا نكتفي بسرعة الشاشة نسأل هل تحسن مصار المريض؟ وكم حالة فاتت؟",
+      "char_similarity": 0.97,
+      "fuzzy_word_recall": 0.923,
+      "critical_missing": [],
+      "pass": true
+    },
+    {
+      "scene": 6,
+      "transcript": "حكيم اي اي الفائدة الحققية تحتاج دليلا وليست وعدا مسبقا",
+      "char_similarity": 0.973,
+      "fuzzy_word_recall": 1.0,
+      "critical_missing": [],
+      "pass": true
+    }
+  ],
+  "automated_audio_status": "PASS"
+}
