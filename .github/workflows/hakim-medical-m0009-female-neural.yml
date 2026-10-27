@@ -1,0 +1,59 @@
+name: Hakim AI M0009 female neural narrator
+on:
+  push:
+    branches: [hakim-ai-free-voice-test]
+    paths:
+      - '.github/workflows/hakim-medical-m0009-female-neural.yml'
+  workflow_dispatch:
+concurrency:
+  group: hakim-ai-m0009-female-neural
+  cancel-in-progress: false
+permissions:
+  contents: write
+jobs:
+  produce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install media and Arabic fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg fonts-noto-core
+      - name: Install speech and verification tools
+        run: python -m pip install edge-tts faster-whisper soundfile numpy pillow
+      - name: Render female narration and six scenes
+        run: python hakim-voice/medical-female/medical_m0009_edge.py
+      - name: Verify each Arabic narration scene
+        run: python hakim-voice/medical-female/qa_m0009_edge.py
+      - name: Validate vertical H264 AAC output
+        run: |
+          ffprobe -v error -show_entries format=duration:stream=codec_name,width,height,r_frame_rate,sample_rate -of json hakim-voice/medical-female/out_edge_m0009/HAI-M0009-female-edge.mp4
+          ffmpeg -v error -i hakim-voice/medical-female/out_edge_m0009/HAI-M0009-female-edge.mp4 -f null -
+      - name: Preserve reviewed output in production branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin hakim-ai-free-voice-test
+          git rebase origin/hakim-ai-free-voice-test
+          git add hakim-voice/medical-female/out_edge_m0009/HAI-M0009-female-edge.mp4 hakim-voice/medical-female/out_edge_m0009/production_report.json hakim-voice/medical-female/out_edge_m0009/contact.png
+          git commit -m 'Render Hakim AI M0009 with female neural voice' || true
+          git push origin HEAD:hakim-ai-free-voice-test
+      - name: Preserve render and quality report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hakim-m0009-female-neural-production
+          path: |
+            hakim-voice/medical-female/out_edge_m0009/HAI-M0009-female-edge.mp4
+            hakim-voice/medical-female/out_edge_m0009/production_report.json
+            hakim-voice/medical-female/out_edge_m0009/contact.png
+          if-no-files-found: warn
+          retention-days: 14
+
+# Recheck clinically equivalent Arabic ASR spellings, keeping negation mandatory.
+
+# Episode 9 uses a fictional exercise and scene-specific visuals.
