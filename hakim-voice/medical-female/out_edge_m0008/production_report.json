@@ -1,0 +1,82 @@
+{
+  "id": "HAI-M0008",
+  "duration_seconds": 49.19,
+  "scenes_seconds": [
+    7.23,
+    7.086,
+    8.094,
+    8.694,
+    6.966,
+    11.118
+  ],
+  "speaker": "Microsoft ar-SA-ZariyahNeural",
+  "voice_reference": "female voice selected by user 27 October 2026",
+  "audio_peak": 0.79433,
+  "full_decode": "passed",
+  "narration": [
+    "أداتان للذكاء الاصطناعي تفحصان الأشعة. كيف تعرف أيهما أفضل؟",
+    "ابدأ بمهمة واحدة واضحة، مثل ترتيب أشعة الصدر للمراجعة الأسرع.",
+    "واختبر الأداتين على الحالات نفسها، ببيانات تمثل المرضى ومستقلة عن تدريب كل منهما.",
+    "قارن الحالات الفائتة والإنذارات غير الصحيحة، وفي تجربة واقعية قس وقت الوصول للمراجعة.",
+    "نسبة دقة واحدة لا تكفي، فقد يختلف الأداء بين المرضى والمستشفيات.",
+    "واختبر أداء الفريق والأداة معًا. درجة الاشتباه ليست تشخيصًا نهائيًا. حكيم أي آي، الدليل أولًا."
+  ],
+  "source": [
+    "https://www.fda.gov/media/153486/download",
+    "https://www.bmj.com/content/385/bmj-2023-078378"
+  ],
+  "human_listening": "not_performed",
+  "visual_review": "pending",
+  "automatic_asr_model": "Whisper small Arabic CPU int8",
+  "scene_checks": [
+    {
+      "scene": 1,
+      "transcript": "أداتان للذكاء الاستناعي تفحصان الأشعى كيف تعرف أيهما أفضل",
+      "char_similarity": 0.939,
+      "fuzzy_word_recall": 0.889,
+      "critical_missing": [],
+      "pass": true
+    },
+    {
+      "scene": 2,
+      "transcript": "إبدأ بمهمة واحدة واضحة مثل تبتيب أشعة الصدري للمرجعة الأسرعة",
+      "char_similarity": 0.95,
+      "fuzzy_word_recall": 1.0,
+      "critical_missing": [],
+      "pass": true
+    },
+    {
+      "scene": 3,
+      "transcript": "واختبر الأداتين على الحالات نفسها ببيانات تمثل المرضى ومستقلة عن تدريب كل منهما.",
+      "char_similarity": 0.994,
+      "fuzzy_word_recall": 1.0,
+      "critical_missing": [],
+      "pass": true
+    },
+    {
+      "scene": 4,
+      "transcript": "خارن الحلات الفائتة والإنذارات غير الصحيحة وفي تجربة واقعية قس وقت الوصول للمرجعة",
+      "char_similarity": 0.97,
+      "fuzzy_word_recall": 0.923,
+      "critical_missing": [],
+      "pass": true
+    },
+    {
+      "scene": 5,
+      "transcript": "نسبة دقة واحدة لا تكفي فقد يختلف الأداء بين المرض والمستشفيات.",
+      "char_similarity": 0.984,
+      "fuzzy_word_recall": 1.0,
+      "critical_missing": [],
+      "pass": true
+    },
+    {
+      "scene": 6,
+      "transcript": "واختبر أداء الفريق والأدات معاً درجة الاجتباه ليست تشخيص النهائياً حكيم أي أي الدليل أولاً",
+      "char_similarity": 0.943,
+      "fuzzy_word_recall": 1.0,
+      "critical_missing": [],
+      "pass": true
+    }
+  ],
+  "automated_audio_status": "PASS"
+}
