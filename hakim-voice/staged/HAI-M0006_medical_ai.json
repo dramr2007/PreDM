@@ -1,0 +1,128 @@
+{
+  "id": "HAI-M0006",
+  "bank": "HAI-M0001-HAI-M1000",
+  "title_ar": "الذكاء الاصطناعي الطبي: أين تظهر الفائدة؟",
+  "status": "SCRIPT_AND_STORYBOARD_READY__PUBLISHING_BLOCKED_BY_LOCKED_VOICE",
+  "reviewed_at": "2026-10-27T04:15:00+03:00",
+  "audience": "الجمهور العام",
+  "evidence_type": "شرح تعليمي مؤلف مدعوم بإرشاد WHO ودراسة عشوائية حديثة؛ لا يقدم نصيحة طبية شخصية",
+  "narration_ar": [
+    "هل يمكن لبرنامج أن ينقذ دقيقة مهمة في الطوارئ؟",
+    "تخيل قسمًا يستقبل صورًا كثيرة، وفيه صورة تحتاج مراجعة عاجلة. قد يساعد نموذج مدرّب في ترتيب الصور التي تستحق أن يراها الفريق أولًا.",
+    "لكن درجة الاشتباه ليست تشخيصًا، والبرنامج قد يفوّت صورة مهمة.",
+    "والسرعة وحدها لا تثبت فائدة للمريض: في تجربة عشوائية بريطانية كبيرة نُشرت عام 2026، لم يختصر ترتيب أشعة الصدر بالذكاء الاصطناعي زمن الوصول إلى التصوير المقطعي أو تشخيص سرطان الرئة.",
+    "لذلك نقيس المسار كاملًا: هل وصل المريض إلى المراجعة أسرع؟ هل زادت الحالات الفائتة؟ وهل تكررت النتيجة في مستشفيات أخرى؟",
+    "الفائدة الحقيقية نتيجة قابلة للقياس، وليست وعدًا مسبقًا."
+  ],
+  "scenes": [
+    {
+      "n": 1,
+      "time": "0-3s",
+      "visual": "بوابة طوارئ افتراضية مع مؤقت ذهبي وصورة تصل إلى طابور المراجعة",
+      "ar": "هل تنقذ دقيقة؟",
+      "en": "Can a minute matter?"
+    },
+    {
+      "n": 2,
+      "time": "3-10s",
+      "visual": "طابور صور مصطنعة غير تشريحية؛ بطاقة واحدة ترتفع للمراجعة",
+      "ar": "ترتيب الأولوية ≠ تشخيص",
+      "en": "Priority ≠ diagnosis"
+    },
+    {
+      "n": 3,
+      "time": "10-18s",
+      "visual": "درجة اشتباه تنتقل إلى طبيب يراجعها؛ علامة خطأ محتمل",
+      "ar": "الإنسان يراجع",
+      "en": "Human review"
+    },
+    {
+      "n": 4,
+      "time": "18-29s",
+      "visual": "مخطط تجربة عشوائية: سير معتاد مقابل ترتيب بالذكاء الاصطناعي؛ النتيجة لا فرق معنوي في زمن المسار",
+      "ar": "السرعة وحدها لا تكفي",
+      "en": "Speed alone is not enough"
+    },
+    {
+      "n": 5,
+      "time": "29-39s",
+      "visual": "لوحة قياس: زمن المراجعة، حالات فائتة، مواقع متعددة",
+      "ar": "نقيس المسار كاملًا",
+      "en": "Measure the whole pathway"
+    },
+    {
+      "n": 6,
+      "time": "39-46s",
+      "visual": "بطاقة HAKIM-X ختامية وحدود الاستخدام",
+      "ar": "الفائدة تُثبت بالدليل",
+      "en": "Benefit needs evidence"
+    }
+  ],
+  "format": {
+    "aspect": "9:16",
+    "resolution": "720x1280 or 1080x1920",
+    "fps": 30,
+    "video": "H.264",
+    "audio": "AAC 48kHz after approved narration",
+    "palette": [
+      "Navy",
+      "Turquoise",
+      "Gold"
+    ],
+    "rtl": true,
+    "footer": "Dr\\Amr kamel kahlil ahmed"
+  },
+  "sources": [
+    {
+      "type": "WHO guidance",
+      "url": "https://www.who.int/publications/i/item/9789240029200",
+      "date": "2021",
+      "use": "حوكمة المنفعة والمخاطر والمساءلة"
+    },
+    {
+      "type": "Randomized controlled trial",
+      "url": "https://www.nature.com/articles/s41591-026-04253-5",
+      "date": "2026",
+      "use": "LungIMPACT: لم يختصر ترتيب أشعة الصدر بالذكاء الاصطناعي زمن المسار التشخيصي في التجربة"
+    }
+  ],
+  "metricool_preflight": {
+    "brandId": "7198574",
+    "timezone": "Asia/Riyadh",
+    "destinations": {
+      "youtube": "UCJm_IjZXF38EeAD32hvXEPw",
+      "instagram": "hakimai2026",
+      "tiktok": "hakim.ai1",
+      "facebook": "716496105150405"
+    },
+    "existing_post_found": false,
+    "scheduled": false
+  },
+  "voice_lock": {
+    "reference": "HAI-C0040 Transfer Learning",
+    "reference_url": "https://www.youtube.com/shorts/cGQIb67n58I",
+    "voice_id": "15ef8a736a734fbcbdb3c80678f631de",
+    "settings": {
+      "speed": 1,
+      "pitch": 0,
+      "volume": 1
+    },
+    "exact_match_verified": false,
+    "current_blocker": "HeyGen 402 insufficient_credit; 0 free seconds; no automatic retry permitted",
+    "prohibited_substitutes": [
+      "Nabra af_msa",
+      "Piper",
+      "SILMA",
+      "Habibi",
+      "Chatterbox-unverified"
+    ]
+  },
+  "release_gate": [
+    "Obtain approved locked narration without added cost and without retrying the blocked provider absent new authority",
+    "Human listening review of pronunciation and speaker identity",
+    "Automated silence, loudness, true-peak and full-decode checks",
+    "Full-frame and representative-frame RTL/visual QA",
+    "Recheck Metricool queue and >=1h separation",
+    "Publish only through Metricool with AI-media disclosure and correct audience setting"
+  ]
+}
