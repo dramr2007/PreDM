@@ -1,0 +1,58 @@
+name: Hakim AI M0006 female narrator production
+on:
+  push:
+    branches: [hakim-ai-free-voice-test]
+    paths:
+      - '.github/workflows/hakim-medical-m0006-female.yml'
+  workflow_dispatch:
+concurrency:
+  group: hakim-ai-m0006-female
+  cancel-in-progress: false
+permissions:
+  contents: write
+jobs:
+  produce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install media and Arabic fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg espeak-ng fonts-noto-core
+      - name: Install CPU speech and production dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install soundfile huggingface_hub loguru attrs 'transformers<5' 'misaki[en]>=0.9.4' 'phonemizer-fork>=3.3.2' camel-tools numpy pillow faster-whisper
+      - name: Render six scenes with Arabic female voice
+        run: python hakim-voice/medical-female/medical_m0006.py
+      - name: Verify Arabic narration and decode
+        run: python hakim-voice/medical-female/qa_m0006.py
+      - name: Validate vertical H264 AAC output
+        run: |
+          ffprobe -v error -show_entries format=duration:stream=codec_name,width,height,r_frame_rate,sample_rate -of json hakim-voice/medical-female/out/HAI-M0006-female.mp4
+          ffmpeg -v error -i hakim-voice/medical-female/out/HAI-M0006-female.mp4 -f null -
+      - name: Publish render to isolated production branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin hakim-ai-free-voice-test
+          git rebase origin/hakim-ai-free-voice-test
+          git add hakim-voice/medical-female/out/HAI-M0006-female.mp4 hakim-voice/medical-female/out/production_report.json hakim-voice/medical-female/out/contact.png
+          git commit -m 'Render reviewed Hakim AI M0006 female narrator' || true
+          git push origin HEAD:hakim-ai-free-voice-test
+      - name: Preserve render and quality report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hakim-m0006-female-production
+          path: |
+            hakim-voice/medical-female/out/HAI-M0006-female.mp4
+            hakim-voice/medical-female/out/production_report.json
+            hakim-voice/medical-female/out/contact.png
+          if-no-files-found: warn
+          retention-days: 14
